@@ -33,16 +33,18 @@ exports.main = async (event, context) => {
             msg: '今日已签到'
           };
         }
-        
+
         let newStreak = 1;
         const yesterday = new Date(Date.now() - 86400000).toDateString();
         if (user.dailyCheck.lastDate === yesterday) {
           newStreak = Math.min(user.dailyCheck.streak + 1, 7);
         }
-        
-        pointsChange = Math.min(5 + (newStreak - 1) * 3, 20);
+
+        // 更大方的签到积分：10, 20, 30, 40, 50, 60, 100
+        const signPointsMap = { 1: 10, 2: 20, 3: 30, 4: 40, 5: 50, 6: 60, 7: 100 };
+        pointsChange = signPointsMap[newStreak] || 10;
         desc = `每日签到，连续${newStreak}天`;
-        
+
         await db.collection('users').doc(openid).update({
           data: {
             points: _.inc(pointsChange),
@@ -54,13 +56,13 @@ exports.main = async (event, context) => {
         break;
 
       case 'ad':
-        if (user.adCount >= 3) {
+        if (user.adCount >= 5) {
           return {
             code: -1,
             msg: '今日观看广告次数已达上限'
           };
         }
-        pointsChange = 10;
+        pointsChange = 20; // 从10改为20
         desc = '观看激励视频广告';
         await db.collection('users').doc(openid).update({
           data: {
@@ -72,7 +74,7 @@ exports.main = async (event, context) => {
         break;
 
       case 'share':
-        if (user.shareCount >= 3) {
+        if (user.shareCount >= 5) {
           return {
             code: -1,
             msg: '今日分享次数已达上限'
@@ -84,6 +86,25 @@ exports.main = async (event, context) => {
           data: {
             points: _.inc(pointsChange),
             shareCount: _.inc(1),
+            updateTime: Date.now()
+          }
+        });
+        break;
+
+      case 'watchAd':
+        // 前端调用的新类型，与 'ad' 相同但返回更多积分
+        if (user.adCount >= 5) {
+          return {
+            code: -1,
+            msg: '今日观看广告次数已达上限'
+          };
+        }
+        pointsChange = 20;
+        desc = '观看激励视频广告';
+        await db.collection('users').doc(openid).update({
+          data: {
+            points: _.inc(pointsChange),
+            adCount: _.inc(1),
             updateTime: Date.now()
           }
         });

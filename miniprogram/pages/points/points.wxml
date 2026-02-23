@@ -37,7 +37,7 @@
       bindtap="handleSignin"
       disabled="{{hasSignedToday}}"
     >
-      {{hasSignedToday ? '今日已签到' : `签到领取 +${todayPoints} 积分`}}
+      {{hasSignedToday ? '今日已签到' : '签到领取 +' + todayPoints + ' 积分'}}
     </button>
   </view>
 

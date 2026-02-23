@@ -168,13 +168,13 @@ Page({
 
   goToFrames() {
     wx.navigateTo({
-      url: '/pages/style/style?type=frame'
+      url: '/pages/material/material?type=frame'
     });
   },
 
   goToStickers() {
     wx.navigateTo({
-      url: '/pages/style/style?type=sticker'
+      url: '/pages/material/material?type=sticker'
     });
   },
 

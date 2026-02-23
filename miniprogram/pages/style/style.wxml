@@ -1,2 +1,54 @@
-<!--pages/style/style.wxml-->
-<text>pages/style/style.wxml</text>
+<view class="style-page">
+  <!-- 基础风格 -->
+  <view class="section">
+    <view class="section-title">基础风格</view>
+    <view class="style-grid">
+      <view
+        wx:for="{{styles}}"
+        wx:key="key"
+        class="style-item {{selectedStyle === item.key ? 'selected' : ''}}"
+        data-style="{{item.key}}"
+        bindtap="selectStyle"
+      >
+        <view class="style-icon">🎨</view>
+        <view class="style-name">{{item.name}}</view>
+        <view wx:if="{{item.hot}}" class="hot-tag">热门</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 民族风格 -->
+  <view class="section">
+    <view class="section-title">
+      <text>民族风格</text>
+      <text class="sub-title">（可叠加基础风格）</text>
+    </view>
+    <view class="ethnic-grid">
+      <view
+        wx:for="{{ethnicStyles}}"
+        wx:key="key"
+        class="ethnic-item {{selectedEthnic === item.key ? 'selected' : ''}}"
+        style="border-color: {{item.color}}"
+        data-ethnic="{{item.key}}"
+        bindtap="selectEthnic"
+      >
+        <view class="ethnic-icon" style="background: {{item.color}}">🌸</view>
+        <view class="ethnic-name">{{item.name}}</view>
+        <view class="ethnic-desc">{{item.desc}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 确认按钮 -->
+  <view class="footer">
+    <view class="tips">
+      <text wx:if="{{selectedEthnic}}">
+        已选择：{{selectedStyleName}} + {{selectedEthnicName}}
+      </text>
+      <text wx:else>
+        已选择：{{selectedStyleName}}
+      </text>
+    </view>
+    <button class="confirm-btn" bindtap="goBack">确认选择</button>
+  </view>
+</view>

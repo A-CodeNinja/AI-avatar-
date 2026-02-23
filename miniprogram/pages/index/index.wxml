@@ -12,19 +12,19 @@
             </view>
           </view>
         </view>
-        <image class="header-decoration" src="/images/header-decoration.png"></image>
+        <text class="header-decoration">✨</text>
       </view>
       <view class="points-bottom">
         <view class="points-item" bindtap="goToPoints">
-          <image class="points-item-icon" src="/images/icons/sign.png"></image>
+          <text class="points-item-icon">📅</text>
           <text class="points-item-text">每日签到</text>
         </view>
         <view class="points-item" bindtap="watchAd">
-          <image class="points-item-icon" src="/images/icons/ad.png"></image>
+          <text class="points-item-icon">🎬</text>
           <text class="points-item-text">看广告领积分</text>
         </view>
         <view class="points-item" bindtap="goToInvite">
-          <image class="points-item-icon" src="/images/icons/invite.png"></image>
+          <text class="points-item-icon">🎁</text>
           <text class="points-item-text">邀请好友</text>
         </view>
       </view>
@@ -40,75 +40,52 @@
     <view class="upload-area" bindtap="chooseImage">
       <image wx:if="{{selectedImage}}" class="preview-image" src="{{selectedImage}}" mode="aspectFill"></image>
       <view wx:else class="upload-placeholder">
-        <view class="upload-icon-wrapper">
-          <image class="upload-icon" src="/images/icons/upload.png"></image>
-        </view>
+        <text class="upload-icon">📷</text>
         <text class="upload-text">点击选择照片</text>
         <text class="upload-tips">支持jpg、png格式</text>
       </view>
     </view>
   </view>
 
-  <!-- 热门头像框 -->
+  <!-- 民族风格选择（新增） -->
   <view class="section-card">
     <view class="section-header">
-      <text class="section-title">热门头像框</text>
-      <text class="section-more" bindtap="goToFrames">更多 ></text>
+      <text class="section-title">民族风格</text>
+      <text class="section-tips">特色风格</text>
     </view>
-    <scroll-view class="hot-scroll" scroll-x="true" enhanced show-scrollbar="{{false}}">
-      <view class="hot-list">
-        <view 
-          wx:for="{{hotFrames}}" 
-          wx:key="id"
-          class="hot-item {{selectedFrame === item.id ? 'active' : ''}}"
-          data-id="{{item.id}}"
-          bindtap="selectFrame"
+    <scroll-view class="ethnic-scroll" scroll-x="true" enhanced show-scrollbar="{{false}}">
+      <view class="ethnic-list">
+        <view
+          wx:for="{{ethnicStyles}}"
+          wx:key="key"
+          class="ethnic-item {{selectedEthnic === item.key ? 'active' : ''}}"
+          data-ethnic="{{item.key}}"
+          bindtap="selectEthnic"
+          style="border-color: {{item.color}}"
         >
-          <image class="hot-image" src="{{item.image}}"></image>
-          <text class="hot-name">{{item.name}}</text>
+          <text class="ethnic-icon" style="background: {{item.color}}">🌸</text>
+          <text class="ethnic-name">{{item.name}}</text>
         </view>
       </view>
     </scroll-view>
   </view>
 
-  <!-- 热门贴纸 -->
+  <!-- 基础风格选择 -->
   <view class="section-card">
     <view class="section-header">
-      <text class="section-title">热门贴纸</text>
-      <text class="section-more" bindtap="goToStickers">更多 ></text>
-    </view>
-    <scroll-view class="hot-scroll" scroll-x="true" enhanced show-scrollbar="{{false}}">
-      <view class="hot-list">
-        <view 
-          wx:for="{{hotStickers}}" 
-          wx:key="id"
-          class="hot-item {{selectedSticker === item.id ? 'active' : ''}}"
-          data-id="{{item.id}}"
-          bindtap="selectSticker"
-        >
-          <image class="hot-image" src="{{item.image}}"></image>
-          <text class="hot-name">{{item.name}}</text>
-        </view>
-      </view>
-    </scroll-view>
-  </view>
-
-  <!-- 选择风格 -->
-  <view class="section-card">
-    <view class="section-header">
-      <text class="section-title">生成风格</text>
+      <text class="section-title">基础风格</text>
       <text class="section-tips">AI智能生成</text>
     </view>
     <scroll-view class="style-scroll" scroll-x="true" enhanced show-scrollbar="{{false}}">
       <view class="style-list">
-        <view 
-          wx:for="{{styles}}" 
+        <view
+          wx:for="{{styles}}"
           wx:key="key"
           class="style-item {{selectedStyle === item.key ? 'active' : ''}}"
           data-style="{{item.key}}"
           bindtap="selectStyle"
         >
-          <image class="style-icon" src="{{item.icon}}"></image>
+          <text class="style-icon">🎨</text>
           <text class="style-name">{{item.name}}</text>
           <text wx:if="{{item.hot}}" class="style-hot">HOT</text>
         </view>
@@ -118,18 +95,14 @@
 
   <!-- 生成按钮 -->
   <view class="action-section">
-    <button 
-      class="generate-btn" 
+    <button
+      class="generate-btn"
       bindtap="generateAvatar"
       disabled="{{isGenerating || !selectedImage}}"
     >
       <text wx:if="{{isGenerating}}" class="btn-loading">生成中...</text>
       <text wx:else>立即生成 AI头像</text>
       <text class="btn-points">消耗10积分</text>
-    </button>
-    <button class="generate-btn btn-secondary" bindtap="goToBianbian">
-      <text>百变头像</text>
-      <text class="btn-sub">动漫风格</text>
     </button>
   </view>
 
@@ -141,7 +114,7 @@
     </view>
     <view class="tips-item">
       <text class="tips-icon">✓</text>
-      <text class="tips-text">支持多种风格选择</text>
+      <text class="tips-text">支持5种民族风格</text>
     </view>
     <view class="tips-item">
       <text class="tips-icon">✓</text>

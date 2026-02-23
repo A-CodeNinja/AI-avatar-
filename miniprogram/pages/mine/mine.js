@@ -49,9 +49,12 @@ Page({
 
   async loadUserStats() {
     try {
+      const wxContext = await wx.cloud.getWXContext();
+      const openid = wxContext.OPENID;
+
       const res = await wx.cloud.database().collection('images')
         .where({
-          _openid: '{openid}'
+          _openid: openid
         })
         .count();
 

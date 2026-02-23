@@ -36,9 +36,6 @@ const ethnicPrompts = {
   tajik: '塔吉克族风格，精美刺绣图案，红绿配色，雄鹰元素，高原民族特色'
 };
 
-// 全局变量（在云函数中用于记录openid）
-let openid;
-
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext();
   const openid = wxContext.OPENID;
