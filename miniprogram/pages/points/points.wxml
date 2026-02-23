@@ -1,0 +1,50 @@
+<view class="container">
+  <view class="points-header card">
+    <view class="points-title">我的积分</view>
+    <view class="points-value">{{points}}</view>
+    <view class="points-tips">生成头像需要10积分</view>
+  </view>
+
+  <view class="tasks-section">
+    <view class="section-title">获取积分</view>
+    
+    <view class="task-item card" bindtap="handleSignin">
+      <view class="task-info">
+        <view class="task-name">每日签到</view>
+        <view class="task-desc">连续签到奖励更多</view>
+      </view>
+      <view class="task-reward">+5~20积分</view>
+    </view>
+
+    <view class="task-item card" bindtap="handleWatchAd">
+      <view class="task-info">
+        <view class="task-name">观看广告</view>
+        <view class="task-desc">每日3次机会</view>
+      </view>
+      <view class="task-reward">+10积分</view>
+    </view>
+
+    <view class="task-item card" open-type="share" bindtap="handleShare">
+      <view class="task-info">
+        <view class="task-name">分享给好友</view>
+        <view class="task-desc">每日3次机会</view>
+      </view>
+      <view class="task-reward">+5积分</view>
+    </view>
+  </view>
+
+  <view class="log-section" wx:if="{{pointsLog.length > 0}}">
+    <view class="section-title">积分记录</view>
+    <view class="log-list">
+      <view wx:for="{{pointsLog}}" wx:key="_id" class="log-item card">
+        <view class="log-info">
+          <view class="log-desc">{{item.desc}}</view>
+          <view class="log-time">{{item.formatTime}}</view>
+        </view>
+        <view class="log-change {{item.change > 0 ? 'positive' : 'negative'}}">
+          {{item.change > 0 ? '+' : ''}}{{item.change}}
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,47 @@
+<view class="container">
+  <view class="tabs">
+    <view 
+      wx:for="{{tabs}}" 
+      wx:key="*this"
+      class="tab-item {{currentTab === index ? 'active' : ''}}"
+      data-index="{{index}}"
+      bindtap="switchTab"
+    >
+      {{item}}
+    </view>
+  </view>
+
+  <view class="content-section">
+    <view wx:if="{{currentTab === 0}}" class="material-grid">
+      <view 
+        wx:for="{{frames}}" 
+        wx:key="id"
+        class="material-item"
+        data-url="{{item.path}}"
+        bindtap="previewImage"
+      >
+        <image class="material-image" src="{{item.path}}" mode="aspectFill"></image>
+        <text class="material-name">{{item.name}}</text>
+      </view>
+    </view>
+
+    <view wx:if="{{currentTab === 1}}" class="material-grid">
+      <view 
+        wx:for="{{icons}}" 
+        wx:key="id"
+        class="material-item"
+        data-url="{{item.path}}"
+        bindtap="previewImage"
+      >
+        <image class="material-image" src="{{item.path}}" mode="aspectFill"></image>
+        <text class="material-name">{{item.name}}</text>
+      </view>
+    </view>
+
+    <view wx:if="{{currentTab === 2}}" class="emoji-grid">
+      <view wx:for="{{emojis}}" wx:key="id" class="emoji-item">
+        <text class="emoji-text">{{item.emoji}}</text>
+      </view>
+    </view>
+  </view>
+</view>

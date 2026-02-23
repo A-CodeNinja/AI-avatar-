@@ -1,0 +1,109 @@
+.container {
+  padding: 30rpx;
+}
+
+.points-header {
+  background: linear-gradient(135deg, #6C63FF 0%, #8B7FFF 100%);
+  color: white;
+  text-align: center;
+  padding: 60rpx 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.points-title {
+  font-size: 28rpx;
+  opacity: 0.9;
+  margin-bottom: 10rpx;
+}
+
+.points-value {
+  font-size: 72rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.points-tips {
+  font-size: 24rpx;
+  opacity: 0.8;
+}
+
+.tasks-section {
+  margin-bottom: 30rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 20rpx;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+
+.task-info {
+  flex: 1;
+}
+
+.task-name {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 8rpx;
+}
+
+.task-desc {
+  font-size: 24rpx;
+  color: #999999;
+}
+
+.task-reward {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #6C63FF;
+}
+
+.log-section {
+  margin-bottom: 30rpx;
+}
+
+.log-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+}
+
+.log-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 25rpx 30rpx;
+}
+
+.log-desc {
+  font-size: 28rpx;
+  color: #333333;
+  margin-bottom: 6rpx;
+}
+
+.log-time {
+  font-size: 22rpx;
+  color: #999999;
+}
+
+.log-change {
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.log-change.positive {
+  color: #07C160;
+}
+
+.log-change.negative {
+  color: #FA5151;
+}

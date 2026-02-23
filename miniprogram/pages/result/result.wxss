@@ -1,0 +1,99 @@
+.container {
+  padding: 30rpx;
+}
+
+.result-image-section {
+  margin-bottom: 30rpx;
+}
+
+.image-wrapper {
+  width: 100%;
+  height: 600rpx;
+  background-color: #F5F5F5;
+  border-radius: 20rpx;
+  overflow: hidden;
+}
+
+.result-image {
+  width: 100%;
+  height: 100%;
+}
+
+.placeholder {
+  height: 100%;
+  color: #999999;
+  font-size: 28rpx;
+}
+
+.frames-section {
+  margin-bottom: 30rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 20rpx;
+}
+
+.frames-scroll {
+  white-space: nowrap;
+}
+
+.frames-list {
+  display: flex;
+}
+
+.frame-item {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 20rpx;
+  padding: 15rpx;
+  border-radius: 12rpx;
+  background-color: #F8F9FA;
+  min-width: 120rpx;
+}
+
+.frame-item.active {
+  background: linear-gradient(135deg, #6C63FF 0%, #8B7FFF 100%);
+}
+
+.frame-icon {
+  width: 70rpx;
+  height: 70rpx;
+  border-radius: 8rpx;
+  margin-bottom: 8rpx;
+}
+
+.frame-name {
+  font-size: 22rpx;
+  color: #666666;
+}
+
+.frame-item.active .frame-name {
+  color: white;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 30rpx;
+}
+
+.action-btn {
+  flex: 1;
+  height: 88rpx;
+  line-height: 88rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.tips-section {
+  text-align: center;
+}
+
+.tips-text {
+  font-size: 24rpx;
+  color: #999999;
+}

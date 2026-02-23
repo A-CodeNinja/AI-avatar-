@@ -1,0 +1,31 @@
+<view class="container">
+  <view class="user-header card">
+    <image class="user-avatar" src="/images/icons/avatar.png"></image>
+    <view class="user-info">
+      <view class="user-name">微信用户</view>
+      <view class="user-stats">
+        <text>生成 {{totalGenerate}} 次</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="menu-section">
+    <view 
+      wx:for="{{menuList}}" 
+      wx:key="title"
+      class="menu-item card"
+      data-index="{{index}}"
+      bindtap="handleMenu"
+    >
+      <view class="menu-left">
+        <image class="menu-icon" src="{{item.icon}}"></image>
+        <text class="menu-title">{{item.title}}</text>
+      </view>
+      <image class="menu-arrow" src="/images/arrow.svg"></image>
+    </view>
+  </view>
+
+  <view class="tips-section">
+    <text class="tips-text">· AI生成内容仅供参考</text>
+  </view>
+</view>

@@ -1,0 +1,46 @@
+<view class="container">
+  <view class="tabs">
+    <view 
+      wx:for="{{tabs}}" 
+      wx:key="*this"
+      class="tab-item {{currentTab === index ? 'active' : ''}}"
+      data-index="{{index}}"
+      bindtap="switchTab"
+    >
+      {{item}}
+    </view>
+  </view>
+
+  <view class="gallery-section">
+    <view wx:if="{{currentTab === 0}}" class="gallery-grid">
+      <view 
+        wx:for="{{officialImages}}" 
+        wx:key="id"
+        class="gallery-item"
+        data-urls="{{[item.url]}}"
+        data-current="{{item.url}}"
+        bindtap="previewImage"
+      >
+        <image class="gallery-image" src="{{item.url}}" mode="aspectFill"></image>
+      </view>
+    </view>
+
+    <view wx:if="{{currentTab === 1}}" class="gallery-grid">
+      <view wx:if="{{myImages.length > 0}}">
+        <view 
+          wx:for="{{myImages}}" 
+          wx:key="_id"
+          class="gallery-item"
+          data-urls="{{[item.resultFileID]}}"
+          data-current="{{item.resultFileID}}"
+          bindtap="previewImage"
+        >
+          <image class="gallery-image" src="{{item.resultFileID}}" mode="aspectFill"></image>
+        </view>
+      </view>
+      <view wx:else class="empty-state flex-center">
+        <text class="empty-text">暂无作品</text>
+      </view>
+    </view>
+  </view>
+</view>
