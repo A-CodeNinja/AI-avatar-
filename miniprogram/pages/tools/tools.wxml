@@ -1,0 +1,26 @@
+<view class="container">
+  <view class="header">
+    <text class="header-title">更多好玩</text>
+    <text class="header-subtitle">探索更多有趣的功能</text>
+  </view>
+
+  <view class="tools-grid">
+    <view 
+      wx:for="{{toolsList}}" 
+      wx:key="id"
+      class="tool-item"
+      data-id="{{item.id}}"
+      bindtap="handleTool"
+    >
+      <view class="tool-icon-wrapper" style="background: {{item.color}};">
+        <image class="tool-icon" src="{{item.icon}}"></image>
+      </view>
+      <text class="tool-name">{{item.name}}</text>
+      <text class="tool-desc">{{item.desc}}</text>
+    </view>
+  </view>
+
+  <view class="tips-section">
+    <text class="tips-text">更多功能开发中，敬请期待</text>
+  </view>
+</view>

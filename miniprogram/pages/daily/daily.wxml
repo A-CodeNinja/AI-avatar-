@@ -1,0 +1,53 @@
+<view class="container">
+  <view class="content-card">
+    <view class="category-tabs">
+      <view 
+        wx:for="{{categoryTabs}}" 
+        wx:key="id"
+        class="category-item {{currentCategory === item.id ? 'active' : ''}}"
+        data-id="{{item.id}}"
+        bindtap="switchCategory"
+      >
+        {{item.name}}
+      </view>
+    </view>
+
+    <view class="daily-content">
+      <view class="quote-content">
+        <text class="quote-text">"{{dailyContent.text}}"</text>
+        <text class="quote-author">—— {{dailyContent.author || '佚名'}}</text>
+      </view>
+
+      <view class="daily-date">
+        <text class="date-text">{{dateText}}</text>
+      </view>
+    </view>
+
+    <view class="action-buttons">
+      <button class="action-btn secondary" bindtap="copyContent">
+        <image class="btn-icon" src="/images/icons/copy.png"></image>
+        复制
+      </button>
+      <button class="action-btn primary" bindtap="shareContent">
+        <image class="btn-icon" src="/images/icons/share.png"></image>
+        分享
+      </button>
+    </view>
+  </view>
+
+  <view class="history-section">
+    <view class="section-title">往期回顾</view>
+    <view class="history-list">
+      <view 
+        wx:for="{{historyList}}" 
+        wx:key="id"
+        class="history-item"
+        bindtap="viewHistory"
+        data-index="{{index}}"
+      >
+        <text class="history-text">{{item.text}}</text>
+        <text class="history-date">{{item.date}}</text>
+      </view>
+    </view>
+  </view>
+</view>

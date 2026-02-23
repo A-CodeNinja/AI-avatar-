@@ -1,0 +1,65 @@
+<view class="container">
+  <!-- 类型切换 -->
+  <view class="type-tabs">
+    <view 
+      class="type-item {{currentType === 'all' ? 'active' : ''}}"
+      data-type="all"
+      bindtap="switchType"
+    >
+      全部
+    </view>
+    <view 
+      class="type-item {{currentType === 'ai' ? 'active' : ''}}"
+      data-type="ai"
+      bindtap="switchType"
+    >
+      AI头像
+    </view>
+    <view 
+      class="type-item {{currentType === 'bianbian' ? 'active' : ''}}"
+      data-type="bianbian"
+      bindtap="switchType"
+    >
+      百变头像
+    </view>
+  </view>
+
+  <!-- 历史记录列表 -->
+  <view class="history-list">
+    <view wx:if="{{filteredHistory.length > 0}}">
+      <view 
+        wx:for="{{filteredHistory}}" 
+        wx:key="_id"
+        class="history-item"
+        data-item="{{item}}"
+        bindtap="viewDetail"
+      >
+        <view class="history-left">
+          <image class="history-image" src="{{item.resultFileID}}" mode="aspectFill" lazy-load></image>
+          <view class="history-tag {{item.type}}">{{item.typeText}}</view>
+        </view>
+        <view class="history-right">
+          <text class="history-name">{{item.styleText || item.styleType}}</text>
+          <text class="history-time">{{item.formatTime}}</text>
+          <view class="history-actions">
+            <view class="action-btn" catchtap="downloadImage" data-url="{{item.resultFileID}}">
+              <image class="action-icon" src="/images/icons/download.png"></image>
+              <text>下载</text>
+            </view>
+            <view class="action-btn" catchtap="shareImage" data-item="{{item}}">
+              <image class="action-icon" src="/images/icons/share.png"></image>
+              <text>分享</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view wx:else class="empty-state">
+      <image class="empty-icon" src="/images/empty.png"></image>
+      <text class="empty-text">暂无生成记录</text>
+      <button class="empty-btn" bindtap="goToGenerate">去生成</button>
+    </view>
+  </view>
+</view>

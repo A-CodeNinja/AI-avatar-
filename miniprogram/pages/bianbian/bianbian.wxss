@@ -1,0 +1,254 @@
+.container {
+  min-height: 100vh;
+  background: #F5F7FA;
+  padding-bottom: 40rpx;
+}
+
+/* 上传区域 */
+.upload-section {
+  background: #FFFFFF;
+  margin: 20rpx 30rpx 24rpx;
+  padding: 30rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.06);
+}
+
+.upload-area {
+  width: 100%;
+  height: 500rpx;
+  border-radius: 20rpx;
+  overflow: hidden;
+  background: linear-gradient(135deg, #F8F9FA 0%, #F0F2F5 100%);
+  border: 3rpx dashed #E0E0E0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-area::active {
+  border-color: #667EEA;
+  background: linear-gradient(135deg, #F0F4FF 0%, #E8EEFF 100%);
+}
+
+.preview-image {
+  width: 100%;
+  height: 100%;
+}
+
+.upload-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upload-icon-wrapper {
+  width: 140rpx;
+  height: 140rpx;
+  background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24rpx;
+  box-shadow: 0 8rpx 24rpx rgba(102, 126, 234, 0.3);
+}
+
+.upload-icon {
+  width: 70rpx;
+  height: 70rpx;
+}
+
+.upload-text {
+  font-size: 28rpx;
+  color: #666666;
+  font-weight: 500;
+  margin-bottom: 8rpx;
+}
+
+.upload-tips {
+  font-size: 22rpx;
+  color: #999999;
+}
+
+/* 风格选择 */
+.style-section {
+  background: #FFFFFF;
+  margin: 0 30rpx 24rpx;
+  padding: 30rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.06);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1A1A1A;
+}
+
+.section-tips {
+  font-size: 22rpx;
+  color: #999999;
+}
+
+.style-scroll {
+  width: 100%;
+}
+
+.style-list {
+  display: flex;
+  padding-right: 10rpx;
+}
+
+.style-item {
+  flex-shrink: 0;
+  margin-right: 20rpx;
+  width: 200rpx;
+  padding: 20rpx 16rpx;
+  border-radius: 20rpx;
+  background: #F8F9FA;
+  border: 2rpx solid #E8E8E8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.style-item.active {
+  background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+  border-color: #667EEA;
+  transform: translateY(-4rpx);
+  box-shadow: 0 8rpx 20rpx rgba(102, 126, 234, 0.4);
+}
+
+.style-item::active {
+  transform: scale(0.95);
+}
+
+.style-image {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 16rpx;
+  margin-bottom: 12rpx;
+  background: #E0E0E0;
+}
+
+.style-name {
+  font-size: 24rpx;
+  color: #666666;
+  font-weight: 500;
+  text-align: center;
+}
+
+.style-item.active .style-name {
+  color: #FFFFFF;
+}
+
+.style-hot {
+  position: absolute;
+  top: 8rpx;
+  right: 8rpx;
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+  color: #FFFFFF;
+  font-size: 16rpx;
+  padding: 4rpx 10rpx;
+  border-radius: 8rpx;
+  font-weight: bold;
+}
+
+/* 操作按钮 */
+.action-section {
+  padding: 0 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.generate-btn {
+  width: 100%;
+  height: 110rpx;
+  border-radius: 60rpx;
+  background: linear-gradient(135deg, #FFA751 0%, #FFE259 100%);
+  color: #FFFFFF;
+  font-size: 34rpx;
+  font-weight: bold;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(255, 167, 81, 0.4);
+  line-height: normal;
+}
+
+.generate-btn::after {
+  border: none;
+}
+
+.generate-btn::active {
+  transform: scale(0.98);
+}
+
+.generate-btn[disabled] {
+  opacity: 0.5;
+  box-shadow: none;
+}
+
+.btn-loading {
+  animation: loading 1.5s ease-in-out infinite;
+}
+
+@keyframes loading {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.btn-points {
+  font-size: 22rpx;
+  opacity: 0.9;
+  font-weight: normal;
+  margin-top: 4rpx;
+}
+
+/* 说明信息 */
+.info-section {
+  margin: 0 30rpx;
+  padding: 24rpx;
+  background: linear-gradient(135deg, #FFF5F5 0%, #FFF 100%);
+  border-radius: 16rpx;
+  border-left: 6rpx solid #667EEA;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
+.info-item:last-child {
+  margin-bottom: 0;
+}
+
+.info-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32rpx;
+  height: 32rpx;
+  background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+  color: #FFFFFF;
+  border-radius: 50%;
+  font-size: 18rpx;
+  margin-right: 12rpx;
+  flex-shrink: 0;
+}
+
+.info-text {
+  font-size: 24rpx;
+  color: #666666;
+}

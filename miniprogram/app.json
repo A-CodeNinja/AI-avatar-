@@ -5,54 +5,62 @@
     "pages/material/material",
     "pages/gallery/gallery",
     "pages/points/points",
-    "pages/mine/mine"
+    "pages/mine/mine",
+    "pages/style/style",
+    "pages/bianbian/bianbian",
+    "pages/daily/daily",
+    "pages/tools/tools",
+    "pages/invite/invite",
+    "pages/recharge/recharge",
+    "pages/history/history"
   ],
   "window": {
-    "backgroundColor": "#F8F9FA",
+    "backgroundColor": "#F5F7FA",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#6C63FF",
+    "navigationBarBackgroundColor": "#667EEA",
     "navigationBarTitleText": "AI头像生成",
     "navigationBarTextStyle": "white"
   },
   "tabBar": {
-    "color": "#999999",
-    "selectedColor": "#6C63FF",
+    "color": "#9CA3AF",
+    "selectedColor": "#667EEA",
     "backgroundColor": "#FFFFFF",
-    "borderStyle": "black",
+    "borderStyle": "white",
     "list": [
       {
         "pagePath": "pages/index/index",
         "text": "首页",
-        "iconPath": "images/icons/home.png",
-        "selectedIconPath": "images/icons/home-active.png"
+        "iconPath": "images/tabbar/home.png",
+        "selectedIconPath": "images/tabbar/home-active.png"
       },
       {
         "pagePath": "pages/material/material",
         "text": "素材库",
-        "iconPath": "images/icons/material.png",
-        "selectedIconPath": "images/icons/examples-active.png"
+        "iconPath": "images/tabbar/material.png",
+        "selectedIconPath": "images/tabbar/material-active.png"
       },
       {
         "pagePath": "pages/gallery/gallery",
         "text": "头像墙",
-        "iconPath": "images/icons/examples.png",
-        "selectedIconPath": "images/icons/examples-active.png"
+        "iconPath": "images/tabbar/gallery.png",
+        "selectedIconPath": "images/tabbar/gallery-active.png"
       },
       {
         "pagePath": "pages/points/points",
         "text": "积分",
-        "iconPath": "images/icons/goods.png",
-        "selectedIconPath": "images/icons/goods-active.png"
+        "iconPath": "images/tabbar/points.png",
+        "selectedIconPath": "images/tabbar/points-active.png"
       },
       {
         "pagePath": "pages/mine/mine",
         "text": "我的",
-        "iconPath": "images/icons/usercenter.png",
-        "selectedIconPath": "images/icons/usercenter-active.png"
+        "iconPath": "images/tabbar/mine.png",
+        "selectedIconPath": "images/tabbar/mine-active.png"
       }
     ]
   },
   "sitemapLocation": "sitemap.json",
   "style": "v2",
-  "lazyCodeLoading": "requiredComponents"
+  "lazyCodeLoading": "requiredComponents",
+  "usingComponents": {}
 }

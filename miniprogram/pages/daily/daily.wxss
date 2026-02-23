@@ -1,0 +1,152 @@
+.container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #667EEA 0%, #764BA2 100%);
+  padding: 40rpx 30rpx;
+}
+
+.content-card {
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  padding: 40rpx 30rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.2);
+}
+
+.category-tabs {
+  display: flex;
+  background: #F8F9FA;
+  border-radius: 16rpx;
+  padding: 8rpx;
+  margin-bottom: 40rpx;
+}
+
+.category-item {
+  flex: 1;
+  text-align: center;
+  padding: 16rpx 0;
+  border-radius: 12rpx;
+  font-size: 26rpx;
+  color: #666666;
+  transition: all 0.3s ease;
+}
+
+.category-item.active {
+  background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+  color: #FFFFFF;
+  font-weight: 500;
+}
+
+.daily-content {
+  margin-bottom: 40rpx;
+}
+
+.quote-content {
+  margin-bottom: 30rpx;
+}
+
+.quote-text {
+  display: block;
+  font-size: 36rpx;
+  color: #1A1A1A;
+  font-weight: 500;
+  line-height: 1.8;
+  margin-bottom: 20rpx;
+}
+
+.quote-author {
+  display: block;
+  font-size: 26rpx;
+  color: #999999;
+  text-align: right;
+}
+
+.daily-date {
+  text-align: center;
+}
+
+.date-text {
+  font-size: 24rpx;
+  color: #CCCCCC;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 20rpx;
+}
+
+.action-btn {
+  flex: 1;
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  border: none;
+}
+
+.action-btn.primary {
+  background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+  color: #FFFFFF;
+}
+
+.action-btn.secondary {
+  background: #F8F9FA;
+  color: #667EEA;
+  border: 2rpx solid #667EEA;
+}
+
+.action-btn::after {
+  border: none;
+}
+
+.btn-icon {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 8rpx;
+}
+
+.action-btn.secondary .btn-icon {
+  filter: brightness(0) saturate(100%) invert(32%) sepia(73%) saturate(3497%) hue-rotate(226deg) brightness(96%) contrast(90%);
+}
+
+.history-section {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24rpx;
+  padding: 30rpx;
+  margin-top: 30rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1A1A1A;
+  margin-bottom: 24rpx;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.history-item {
+  background: #F8F9FA;
+  border-radius: 16rpx;
+  padding: 20rpx;
+}
+
+.history-text {
+  display: block;
+  font-size: 28rpx;
+  color: #333333;
+  line-height: 1.6;
+  margin-bottom: 8rpx;
+}
+
+.history-date {
+  display: block;
+  font-size: 22rpx;
+  color: #999999;
+  text-align: right;
+}

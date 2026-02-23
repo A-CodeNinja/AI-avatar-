@@ -1,0 +1,94 @@
+<view class="container">
+  <view class="header">
+    <image class="header-bg" src="/images/invite-bg.png"></image>
+    <view class="header-content">
+      <text class="header-title">邀请好友</text>
+      <text class="header-subtitle">邀请好友注册，获得20积分</text>
+      <view class="invite-stats">
+        <view class="stat-item">
+          <text class="stat-value">{{inviteCount}}</text>
+          <text class="stat-label">已邀请</text>
+        </view>
+        <view class="stat-divider"></view>
+        <view class="stat-item">
+          <text class="stat-value">{{rewardPoints}}</text>
+          <text class="stat-label">获得积分</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="content-section">
+    <view class="reward-card">
+      <view class="reward-title">
+        <image class="reward-icon" src="/images/icons/coin.png"></image>
+        <text>奖励规则</text>
+      </view>
+      <view class="reward-list">
+        <view class="reward-item">
+          <view class="reward-left">
+            <text class="reward-step">01</text>
+            <text class="reward-text">分享给好友</text>
+          </view>
+          <text class="reward-points">-</text>
+        </view>
+        <view class="reward-arrow">↓</view>
+        <view class="reward-item">
+          <view class="reward-left">
+            <text class="reward-step">02</text>
+            <text class="reward-text">好友注册登录</text>
+          </view>
+          <text class="reward-points">-</text>
+        </view>
+        <view class="reward-arrow">↓</view>
+        <view class="reward-item highlight">
+          <view class="reward-left">
+            <text class="reward-step">03</text>
+            <text class="reward-text">获得积分奖励</text>
+          </view>
+          <text class="reward-points">+20</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="share-section">
+      <button class="share-btn main" open-type="share">
+        <image class="share-icon" src="/images/icons/wechat.png"></image>
+        分享给微信好友
+      </button>
+      <button class="share-btn" bindtap="shareToGroup">
+        <image class="share-icon" src="/images/icons/group.png"></image>
+        分享到微信群
+      </button>
+      <button class="share-btn" bindtap="copyLink">
+        <image class="share-icon" src="/images/icons/link.png"></image>
+        复制邀请链接
+      </button>
+    </view>
+
+    <view class="invite-list">
+      <view class="section-header">
+        <text class="section-title">我的邀请</text>
+        <text class="section-count">共{{inviteCount}}人</text>
+      </view>
+      <view wx:if="{{inviteList.length > 0}}" class="list-content">
+        <view 
+          wx:for="{{inviteList}}" 
+          wx:key="_id"
+          class="invite-item"
+        >
+          <image class="invite-avatar" src="{{item.avatar || '/images/icons/avatar.png'}}"></image>
+          <view class="invite-info">
+            <text class="invite-name">{{item.nickName || '微信用户'}}</text>
+            <text class="invite-time">{{item.formatTime}}</text>
+          </view>
+          <text class="invite-points">+20积分</text>
+        </view>
+      </view>
+      <view wx:else class="empty-state">
+        <image class="empty-icon" src="/images/empty.png"></image>
+        <text class="empty-text">还没有邀请好友</text>
+      </view>
+    </view>
+  </view>
+</view>

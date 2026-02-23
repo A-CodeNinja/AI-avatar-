@@ -1,26 +1,24 @@
 page {
-  background-color: #F8F9FA;
+  background-color: #F5F7FA;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
+/* 容器 */
 .container {
-  padding: 20rpx;
+  min-height: 100vh;
 }
 
-.btn-primary {
-  background: linear-gradient(135deg, #6C63FF 0%, #8B7FFF 100%);
-  color: white;
-  border-radius: 50rpx;
+/* 按钮通用样式 */
+button {
+  font-family: inherit;
+}
+
+button::after {
   border: none;
 }
 
-.btn-secondary {
-  background-color: #FFFFFF;
-  color: #6C63FF;
-  border: 2rpx solid #6C63FF;
-  border-radius: 50rpx;
-}
-
+/* 卡片通用样式 */
 .card {
   background-color: #FFFFFF;
   border-radius: 20rpx;
@@ -29,14 +27,28 @@ page {
   margin-bottom: 20rpx;
 }
 
+/* 文本颜色 */
 .text-primary {
-  color: #6C63FF;
+  color: #667EEA;
 }
 
 .text-secondary {
   color: #999999;
 }
 
+.text-success {
+  color: #4CAF50;
+}
+
+.text-warning {
+  color: #FFA751;
+}
+
+.text-danger {
+  color: #FF6B6B;
+}
+
+/* Flex布局 */
 .flex {
   display: flex;
 }
@@ -51,4 +63,77 @@ page {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 滚动条隐藏 */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* 安全区域适配 */
+.safe-area-bottom {
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* 动画 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* 加载中 */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* Toast提示自定义样式 */
+.custom-toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: #FFFFFF;
+  padding: 24rpx 48rpx;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  z-index: 10000;
 }

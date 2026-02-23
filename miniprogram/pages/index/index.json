@@ -1,4 +1,7 @@
 {
   "navigationBarTitleText": "AI头像生成",
-  "enablePullDownRefresh": false
+  "backgroundColor": "#F5F7FA",
+  "navigationBarBackgroundColor": "#667EEA",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {}
 }

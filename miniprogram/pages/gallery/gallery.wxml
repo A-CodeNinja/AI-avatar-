@@ -1,46 +1,59 @@
 <view class="container">
-  <view class="tabs">
-    <view 
-      wx:for="{{tabs}}" 
-      wx:key="*this"
-      class="tab-item {{currentTab === index ? 'active' : ''}}"
-      data-index="{{index}}"
-      bindtap="switchTab"
-    >
-      {{item}}
+  <!-- 分类标签 -->
+  <view class="tabs-wrapper">
+    <scroll-view class="tabs-scroll" scroll-x="true" enhanced show-scrollbar="{{false}}">
+      <view class="tabs-list">
+        <view 
+          wx:for="{{categoryTabs}}" 
+          wx:key="id"
+          class="tab-item {{currentCategory === item.id ? 'active' : ''}}"
+          data-id="{{item.id}}"
+          bindtap="switchCategory"
+        >
+          <text class="tab-text">{{item.name}}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 头像内容 -->
+  <view class="gallery-section">
+    <view class="gallery-grid">
+      <view 
+        wx:for="{{filteredImages}}" 
+        wx:key="id"
+        class="gallery-item"
+        data-url="{{item.url}}"
+        bindtap="previewImage"
+      >
+        <view class="gallery-wrapper">
+          <image class="gallery-image" src="{{item.url}}" mode="aspectFill" lazy-load></image>
+          <view class="gallery-overlay" wx:if="{{item.isShared}}">
+            <image class="share-icon" src="/images/icons/shared.png"></image>
+          </view>
+        </view>
+        <view class="gallery-info">
+          <text class="gallery-name">{{item.name}}</text>
+          <view class="gallery-meta">
+            <image class="like-icon" src="/images/icons/like.png"></image>
+            <text class="like-count">{{item.likes || 0}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view wx:if="{{filteredImages.length === 0}}" class="empty-state">
+      <image class="empty-icon" src="/images/empty.png"></image>
+      <text class="empty-text">暂无该分类的头像</text>
     </view>
   </view>
 
-  <view class="gallery-section">
-    <view wx:if="{{currentTab === 0}}" class="gallery-grid">
-      <view 
-        wx:for="{{officialImages}}" 
-        wx:key="id"
-        class="gallery-item"
-        data-urls="{{[item.url]}}"
-        data-current="{{item.url}}"
-        bindtap="previewImage"
-      >
-        <image class="gallery-image" src="{{item.url}}" mode="aspectFill"></image>
-      </view>
-    </view>
-
-    <view wx:if="{{currentTab === 1}}" class="gallery-grid">
-      <view wx:if="{{myImages.length > 0}}">
-        <view 
-          wx:for="{{myImages}}" 
-          wx:key="_id"
-          class="gallery-item"
-          data-urls="{{[item.resultFileID]}}"
-          data-current="{{item.resultFileID}}"
-          bindtap="previewImage"
-        >
-          <image class="gallery-image" src="{{item.resultFileID}}" mode="aspectFill"></image>
-        </view>
-      </view>
-      <view wx:else class="empty-state flex-center">
-        <text class="empty-text">暂无作品</text>
-      </view>
-    </view>
+  <!-- 分享按钮 -->
+  <view class="share-section" wx:if="{{currentCategory === 'shared'}}">
+    <button class="share-btn" open-type="share">
+      <image class="share-btn-icon" src="/images/icons/share.png"></image>
+      <text class="share-btn-text">分享我的作品</text>
+    </button>
   </view>
 </view>

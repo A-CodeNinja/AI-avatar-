@@ -1,0 +1,67 @@
+<view class="container">
+  <!-- 上传区域 -->
+  <view class="upload-section">
+    <view class="upload-area" bindtap="chooseImage">
+      <image wx:if="{{selectedImage}}" class="preview-image" src="{{selectedImage}}" mode="aspectFill"></image>
+      <view wx:else class="upload-placeholder">
+        <view class="upload-icon-wrapper">
+          <image class="upload-icon" src="/images/icons/upload.png"></image>
+        </view>
+        <text class="upload-text">上传照片</text>
+        <text class="upload-tips">支持自拍或相册</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 百变风格选择 -->
+  <view class="style-section">
+    <view class="section-header">
+      <text class="section-title">选择风格</text>
+      <text class="section-tips">动漫风格</text>
+    </view>
+    <scroll-view class="style-scroll" scroll-x="true" enhanced show-scrollbar="{{false}}">
+      <view class="style-list">
+        <view 
+          wx:for="{{styles}}" 
+          wx:key="key"
+          class="style-item {{selectedStyle === item.key ? 'active' : ''}}"
+          data-style="{{item.key}}"
+          bindtap="selectStyle"
+        >
+          <image class="style-image" src="{{item.image}}"></image>
+          <text class="style-name">{{item.name}}</text>
+          <text wx:if="{{item.hot}}" class="style-hot">HOT</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 生成按钮 -->
+  <view class="action-section">
+    <button 
+      class="generate-btn" 
+      bindtap="generateBianbian"
+      disabled="{{isGenerating || !selectedImage}}"
+    >
+      <text wx:if="{{isGenerating}}" class="btn-loading">生成中...</text>
+      <text wx:else>生成百变头像</text>
+      <text class="btn-points">消耗15积分</text>
+    </button>
+  </view>
+
+  <!-- 风格说明 -->
+  <view class="info-section">
+    <view class="info-item">
+      <text class="info-icon">✦</text>
+      <text class="info-text">上传照片后选择动漫风格</text>
+    </view>
+    <view class="info-item">
+      <text class="info-icon">✦</text>
+      <text class="info-text">支持多种热门动漫风格</text>
+    </view>
+    <view class="info-item">
+      <text class="info-icon">✦</text>
+      <text class="info-text">AI智能转换，效果自然</text>
+    </view>
+  </view>
+</view>

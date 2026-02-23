@@ -1,6 +1,6 @@
 {
-  "navigationBarTitleText": "头像墙",
-  "backgroundColor": "#F5F7FA",
+  "navigationBarTitleText": "每日一言",
+  "backgroundColor": "#667EEA",
   "navigationBarBackgroundColor": "#667EEA",
   "navigationBarTextStyle": "white",
   "usingComponents": {}

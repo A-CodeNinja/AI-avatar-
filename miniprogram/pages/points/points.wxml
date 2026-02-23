@@ -1,49 +1,149 @@
 <view class="container">
-  <view class="points-header card">
-    <view class="points-title">我的积分</view>
-    <view class="points-value">{{points}}</view>
-    <view class="points-tips">生成头像需要10积分</view>
+  <!-- 头部积分卡片 -->
+  <view class="points-header">
+    <view class="points-card">
+      <view class="points-main">
+        <text class="points-label">我的积分</text>
+        <text class="points-value">{{points}}</text>
+      </view>
+      <view class="points-tips">用于生成AI头像</view>
+    </view>
   </view>
 
+  <!-- 签到区域 -->
+  <view class="sign-section">
+    <view class="section-header">
+      <text class="section-title">每日签到</text>
+      <text class="section-tips">连续签到奖励翻倍</text>
+    </view>
+    <view class="calendar-box">
+      <view class="calendar-week">
+        <text class="week-item" wx:for="{{weekDays}}" wx:key="*this">{{item}}</text>
+      </view>
+      <view class="calendar-days">
+        <view 
+          class="day-item {{item.signed ? 'signed' : ''}} {{item.today ? 'today' : ''}}"
+          wx:for="{{signDays}}"
+          wx:key="index"
+        >
+          <text class="day-label">{{item.day}}</text>
+          <text class="day-points" wx:if="{{item.points}}">+{{item.points}}</text>
+          <view class="day-icon" wx:if="{{item.signed}}">✓</view>
+        </view>
+      </view>
+    </view>
+    <button 
+      class="sign-btn"
+      bindtap="handleSignin"
+      disabled="{{hasSignedToday}}"
+    >
+      {{hasSignedToday ? '今日已签到' : `签到领取 +${todayPoints} 积分`}}
+    </button>
+  </view>
+
+  <!-- 获取积分任务 -->
   <view class="tasks-section">
-    <view class="section-title">获取积分</view>
-    
-    <view class="task-item card" bindtap="handleSignin">
-      <view class="task-info">
-        <view class="task-name">每日签到</view>
-        <view class="task-desc">连续签到奖励更多</view>
-      </view>
-      <view class="task-reward">+5~20积分</view>
+    <view class="section-header">
+      <text class="section-title">获取积分</text>
     </view>
-
-    <view class="task-item card" bindtap="handleWatchAd">
-      <view class="task-info">
-        <view class="task-name">观看广告</view>
-        <view class="task-desc">每日3次机会</view>
+    <view class="task-list">
+      <view class="task-item" bindtap="handleWatchAd">
+        <view class="task-left">
+          <image class="task-icon" src="/images/icons/ad.png"></image>
+          <view class="task-info">
+            <text class="task-name">观看激励广告</text>
+            <text class="task-desc">观看完整视频</text>
+          </view>
+        </view>
+        <view class="task-right">
+          <text class="task-reward">+10积分</text>
+          <text class="task-count">剩余{{adCount}}次</text>
+        </view>
       </view>
-      <view class="task-reward">+10积分</view>
-    </view>
 
-    <view class="task-item card" open-type="share" bindtap="handleShare">
-      <view class="task-info">
-        <view class="task-name">分享给好友</view>
-        <view class="task-desc">每日3次机会</view>
+      <view class="task-item" bindtap="handleShare">
+        <view class="task-left">
+          <image class="task-icon" src="/images/icons/share.png"></image>
+          <view class="task-info">
+            <text class="task-name">分享给好友</text>
+            <text class="task-desc">分享到微信好友</text>
+          </view>
+        </view>
+        <view class="task-right">
+          <text class="task-reward">+5积分</text>
+          <text class="task-count">剩余{{shareCount}}次</text>
+        </view>
       </view>
-      <view class="task-reward">+5积分</view>
+
+      <view class="task-item" bindtap="handleShareGroup">
+        <view class="task-left">
+          <image class="task-icon" src="/images/icons/group.png"></image>
+          <view class="task-info">
+            <text class="task-name">分享到群</text>
+            <text class="task-desc">分享到微信群</text>
+          </view>
+        </view>
+        <view class="task-right">
+          <text class="task-reward">+10积分</text>
+          <text class="task-count">剩余{{groupCount}}次</text>
+        </view>
+      </view>
+
+      <view class="task-item" bindtap="goToInvite">
+        <view class="task-left">
+          <image class="task-icon" src="/images/icons/invite.png"></image>
+          <view class="task-info">
+            <text class="task-name">邀请好友</text>
+            <text class="task-desc">好友注册可得20积分</text>
+          </view>
+        </view>
+        <view class="task-right">
+          <text class="task-reward">+20积分/人</text>
+          <text class="task-forever">长期有效</text>
+        </view>
+      </view>
     </view>
   </view>
 
+  <!-- 更多好玩 -->
+  <view class="fun-section">
+    <view class="section-header">
+      <text class="section-title">更多好玩</text>
+    </view>
+    <view class="fun-grid">
+      <view class="fun-item" bindtap="handleFun" data-type="ptu">
+        <image class="fun-icon" src="/images/fun/ptu.png"></image>
+        <text class="fun-name">P图工具</text>
+      </view>
+      <view class="fun-item" bindtap="handleFun" data-type="poster">
+        <image class="fun-icon" src="/images/fun/poster.png"></image>
+        <text class="fun-name">AI海报</text>
+      </view>
+      <view class="fun-item" bindtap="handleFun" data-type="logo">
+        <image class="fun-icon" src="/images/fun/logo.png"></image>
+        <text class="fun-name">AI Logo</text>
+      </view>
+      <view class="fun-item" bindtap="goToDaily">
+        <image class="fun-icon" src="/images/fun/daily.png"></image>
+        <text class="fun-name">每日一言</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 积分记录 -->
   <view class="log-section" wx:if="{{pointsLog.length > 0}}">
-    <view class="section-title">积分记录</view>
+    <view class="section-header">
+      <text class="section-title">积分记录</text>
+    </view>
     <view class="log-list">
-      <view wx:for="{{pointsLog}}" wx:key="_id" class="log-item card">
-        <view class="log-info">
-          <view class="log-desc">{{item.desc}}</view>
-          <view class="log-time">{{item.formatTime}}</view>
+      <view wx:for="{{pointsLog}}" wx:key="_id" class="log-item">
+        <view class="log-left">
+          <text class="log-desc">{{item.desc}}</text>
+          <text class="log-time">{{item.formatTime}}</text>
         </view>
-        <view class="log-change {{item.change > 0 ? 'positive' : 'negative'}}">
+        <text class="log-change {{item.change > 0 ? 'positive' : 'negative'}}">
           {{item.change > 0 ? '+' : ''}}{{item.change}}
-        </view>
+        </text>
       </view>
     </view>
   </view>
