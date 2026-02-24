@@ -81,8 +81,7 @@ Page({
   async loadPointsLog() {
     try {
       // 修复openid bug - 使用真实openid
-      const wxContext = await wx.cloud.getWXContext();
-      const openid = wxContext.OPENID || app.globalData.userInfo.openid;
+      const openid = await wx.cloud.getOpenId();
 
       const res = await wx.cloud.database().collection('points_log')
         .where({

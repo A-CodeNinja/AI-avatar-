@@ -1,7 +1,7 @@
 App({
   onLaunch: function () {
     this.globalData = {
-      env: "",
+      env: "cloud1-6g0jewt1e646e21b",
       userInfo: null,
       points: 100,
       isCloudReady: false
