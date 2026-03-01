@@ -37,49 +37,61 @@
   font-weight: 500;
 }
 
-/* 类型切换 */
+/* 类型切换 - pill风格 */
 .type-tabs {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   background: #FFFFFF;
   padding: 20rpx 30rpx;
   border-bottom: 1rpx solid #F0F0F0;
 }
 
-.type-item {
-  flex: 1;
+.type-pill-wrapper {
   display: flex;
-  flex-direction: column;
+  background: #F2F3F5;
+  border-radius: 50rpx;
+  padding: 6rpx;
+  gap: 4rpx;
+}
+
+.type-pill {
+  display: flex;
   align-items: center;
-  padding: 20rpx;
-  border-radius: 16rpx;
-  background: #F8F9FA;
-  margin-right: 20rpx;
-  transition: all 0.3s ease;
+  padding: 16rpx 40rpx;
+  border-radius: 44rpx;
+  transition: all 0.25s ease;
 }
 
-.type-item:last-child {
-  margin-right: 0;
-}
-
-.type-item.active {
+.type-pill.active {
   background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+  box-shadow: 0 4rpx 16rpx rgba(102, 126, 234, 0.4);
 }
 
-.type-icon {
-  width: 56rpx;
-  height: 56rpx;
-  margin-bottom: 12rpx;
+.pill-emoji {
+  font-size: 32rpx;
+  margin-right: 10rpx;
 }
 
-.type-text {
-  font-size: 24rpx;
+.pill-text {
+  font-size: 28rpx;
   color: #666666;
-}
-
-.type-item.active .type-text {
-  color: #FFFFFF;
   font-weight: 500;
 }
+
+.type-pill.active .pill-text {
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.type-count {
+  font-size: 22rpx;
+  color: #AAAAAA;
+  background: #F8F9FA;
+  padding: 8rpx 20rpx;
+  border-radius: 20rpx;
+}
+
 
 /* 搜索栏 */
 .search-bar {

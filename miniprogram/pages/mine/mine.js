@@ -8,13 +8,6 @@ Page({
     aiCount: 0,
     bianbianCount: 0,
     totalGenerate: 0,
-    selectedRecharge: null,
-    rechargeOptions: [
-      { id: 1, points: 50, price: '4.9', recommend: false },
-      { id: 2, points: 150, price: '9.9', recommend: true },
-      { id: 3, points: 600, price: '29.9', recommend: false },
-      { id: 4, points: 1500, price: '49.9', recommend: true }
-    ],
     menuList: [
       { icon: '/images/icons/history.png', title: '生成记录', url: '/pages/history/history', desc: '', color: 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)' },
       { icon: '/images/icons/ai.png', title: 'AI头像记录', url: '/pages/history/history?type=ai', desc: '', color: 'linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%)' },
@@ -35,31 +28,30 @@ Page({
 
   loadUserInfo() {
     if (app.globalData.userInfo) {
+      const userInfo = app.globalData.userInfo;
+      // 用户ID使用openid的后6位，保证每次一致
+      const shortId = userInfo._id ? userInfo._id.slice(-6).toUpperCase() : '------';
       this.setData({
-        userInfo: app.globalData.userInfo,
-        points: app.globalData.userInfo.points || 100,
-        userId: this.generateUserId()
+        userInfo,
+        points: userInfo.points || 100,
+        userId: shortId
       });
     }
   },
 
-  generateUserId() {
-    return Math.floor(Math.random() * 900000 + 100000).toString();
-  },
-
   async loadUserStats() {
     try {
-      const openid = await wx.cloud.getOpenId();
-
-      const res = await wx.cloud.database().collection('images')
+      // 使用 _openid: '{openid}' 特殊模板，微信云数据库SDK会自动替换为当前用户openid
+      const db = wx.cloud.database();
+      const res = await db.collection('images')
         .where({
-          _openid: openid
+          _openid: '{openid}'
         })
         .count();
 
       const total = res.total || 0;
 
-      // 模拟统计数据
+      // 统计数据
       this.setData({
         aiCount: Math.floor(total * 0.6),
         bianbianCount: Math.floor(total * 0.4),
@@ -70,45 +62,14 @@ Page({
     }
   },
 
-  selectRecharge(e) {
-    const id = e.currentTarget.dataset.id;
-    this.setData({
-      selectedRecharge: id
+  goToSignin() {
+    wx.switchTab({
+      url: '/pages/points/points'
     });
   },
 
-  handleRecharge() {
-    if (!this.data.selectedRecharge) {
-      wx.showToast({
-        title: '请选择充值套餐',
-        icon: 'none'
-      });
-      return;
-    }
-
-    const selected = this.data.rechargeOptions.find(item => item.id === this.data.selectedRecharge);
-
-    wx.showModal({
-      title: '充值确认',
-      content: `确认充值 ${selected.points} 积分，金额 ¥${selected.price}`,
-      success: (res) => {
-        if (res.confirm) {
-          wx.showLoading({ title: '充值中...' });
-          // 实际项目中需要接入支付
-          setTimeout(() => {
-            wx.hideLoading();
-            this.setData({
-              points: this.data.points + selected.points
-            });
-            wx.showToast({
-              title: '充值成功',
-              icon: 'success'
-            });
-          }, 2000);
-        }
-      }
-    });
-  },
+  // 占位：保留供后续添加支付功能
+  // handleRecharge() { ... removed - 暂不支持个人开发者支付
 
   handleMenu(e) {
     const url = e.currentTarget.dataset.url;

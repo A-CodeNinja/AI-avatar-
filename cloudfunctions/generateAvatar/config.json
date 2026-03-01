@@ -1,9 +1,11 @@
 {
-  "envId": "cloud1-6g0jewt1e646e21b",
+  "env": "cloud1-6g0jewt1e646e21b",
   "envVariables": {
     "AI_API_KEY": "98af736f-6038-4552-858f-3b7ef5a14d34",
-    "AI_API_URL": "https://ark.cn-beijing.volces.com/api/v3/chat/completions",
-    "AI_MODEL": "ep-20241101-xxxxx",
+    "AI_API_URL": "https://ark.cn-beijing.volces.com/api/v3/images/edits",
+    "AI_MODEL": "doubao-seedream-3-0-i2i-250328",
     "AI_TYPE": "doubao"
   }
 }
+
+

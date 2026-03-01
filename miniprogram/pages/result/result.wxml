@@ -1,16 +1,34 @@
 <view class="container">
+  <!-- 生成信息栏 -->
+  <view class="info-bar">
+    <view class="info-tag type-tag">{{typeText}}</view>
+    <view class="info-center">
+      <text class="info-style" wx:if="{{styleText}}">{{styleText}}</text>
+      <text class="info-style" wx:if="{{ethnic && ethnic !== 'none'}}"> + 民族风</text>
+    </view>
+    <view class="info-tag success-tag">&#10003; 成功</view>
+  </view>
+
+  <!-- 生成图片 -->
   <view class="result-image-section">
     <view class="image-wrapper">
       <image wx:if="{{tempFilePath}}" class="result-image" src="{{tempFilePath}}" mode="aspectFit"></image>
-      <view wx:else class="placeholder flex-center">
-        <text>加载中...</text>
+      <view wx:else class="placeholder">
+        <view class="loading-spinner"></view>
+        <text class="loading-text">AI生成中...</text>
       </view>
     </view>
+    <!-- 已保存标记 -->
+    <view class="saved-badge" wx:if="{{isSaved}}">&#10003; 已保存</view>
   </view>
 
-  <view class="frames-section card">
-    <view class="section-title">新疆特色头像框</view>
-    <scroll-view class="frames-scroll" scroll-x="true">
+  <!-- 新疆特色头像框 -->
+  <view class="frames-section">
+    <view class="section-header">
+      <text class="section-title">🇺🇳 新疆特色边框</text>
+      <text class="section-tips">点击选择</text>
+    </view>
+    <scroll-view class="frames-scroll" scroll-x="true" enhanced show-scrollbar="{{false}}">
       <view class="frames-list">
         <view 
           wx:for="{{frames}}" 
@@ -19,20 +37,41 @@
           data-frame="{{item.path}}"
           bindtap="selectFrame"
         >
-          <image class="frame-icon" src="{{item.path}}"></image>
+          <image class="frame-icon" src="{{item.path}}" mode="aspectFit"></image>
           <text class="frame-name">{{item.name}}</text>
         </view>
       </view>
     </scroll-view>
   </view>
 
-  <view class="action-buttons">
-    <button class="action-btn btn-secondary" bindtap="regenerate">重新生成</button>
-    <button class="action-btn btn-secondary" bindtap="shareImage">分享</button>
-    <button class="action-btn btn-primary" bindtap="saveImage">保存到相册</button>
+  <!-- 操作按钮区 -->
+  <view class="action-section">
+    <!-- 主操作 -->
+    <view class="main-actions">
+      <button class="action-btn btn-save" bindtap="saveImage">
+        <text class="btn-icon">💾</text>
+        <text>{{isSaved ? '已保存' : '保存相册'}}</text>
+      </button>
+      <button class="action-btn btn-share" open-type="share">
+        <text class="btn-icon">📤</text>
+        <text>分享小程序</text>
+      </button>
+    </view>
+    <!-- 次操作 -->
+    <view class="sub-actions">
+      <button 
+        class="sub-btn {{isSharedToGallery ? 'sub-done' : ''}}" 
+        bindtap="shareToGallery"
+      >
+        {{isSharedToGallery ? '✨ 已分享到头像墙' : '🖼️ 分享到头像墙'}}
+      </button>
+      <button class="sub-btn" bindtap="regenerate">🔄 重新生成</button>
+    </view>
   </view>
 
-  <view class="tips-section">
-    <text class="tips-text">· AI生成内容仅供参考</text>
+  <!-- 提示 -->
+  <view class="tips-row">
+    <text class="tips-dot">·</text>
+    <text class="tips-text">AI生成内容仅供参考，请勿用于井节边界用途</text>
   </view>
 </view>

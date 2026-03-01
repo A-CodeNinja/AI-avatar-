@@ -82,23 +82,24 @@ Page({
       });
 
       const generateRes = await wx.cloud.callFunction({
-        name: 'generateBianbian',
+        name: 'generateAvatar',
         data: {
           fileID: uploadRes.fileID,
-          styleType: this.data.selectedStyle
+          styleType: this.data.selectedStyle,
+          generationType: 'bianbian'  // 百变头像，云函数内根据此字段扣ᕓ15分
         }
       });
 
       wx.hideLoading();
 
       if (generateRes.result.code === 0) {
-        // 扣除积分
+        // 积分已在云函数中扣除，同步内存中的数据
         if (app.globalData.userInfo) {
-          app.globalData.userInfo.points -= points;
+          app.globalData.userInfo.points = Math.max(0, app.globalData.userInfo.points - points);
         }
 
         wx.navigateTo({
-          url: `/pages/result/result?fileID=${generateRes.result.fileID}&type=bianbian`
+          url: `/pages/result/result?fileID=${generateRes.result.fileID}&type=bianbian&style=${this.data.selectedStyle}`
         });
       } else {
         wx.showToast({

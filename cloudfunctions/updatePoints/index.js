@@ -12,18 +12,36 @@ exports.main = async (event, context) => {
   const { type } = event;
 
   try {
-    const userRes = await db.collection('users').doc(openid).get();
-    if (!userRes.data) {
-      return {
-        code: -1,
-        msg: '用户不存在'
-      };
+    // 获取用户信息，兼容文档不存在的情况
+    let user;
+    try {
+      const userRes = await db.collection('users').doc(openid).get();
+      user = userRes.data;
+    } catch (getErr) {
+      return { code: -1, msg: '用户不存在，请先打开小程序' };
     }
 
-    const user = userRes.data;
+    if (!user) {
+      return { code: -1, msg: '用户不存在' };
+    }
+
+    // 检查是否跨天，跨天则重置广告/分享次数
+    const today = new Date().toDateString();
+    if (user.lastActiveDate !== today) {
+      await db.collection('users').doc(openid).update({
+        data: {
+          adCount: 0,
+          shareCount: 0,
+          lastActiveDate: today,
+          updateTime: Date.now()
+        }
+      });
+      user.adCount = 0;
+      user.shareCount = 0;
+    }
+
     let pointsChange = 0;
     let desc = '';
-    const today = new Date().toDateString();
 
     switch (type) {
       case 'signin':

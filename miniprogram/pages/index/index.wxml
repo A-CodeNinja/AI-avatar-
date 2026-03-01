@@ -61,10 +61,11 @@
           class="ethnic-item {{selectedEthnic === item.key ? 'active' : ''}}"
           data-ethnic="{{item.key}}"
           bindtap="selectEthnic"
-          style="border-color: {{item.color}}"
         >
-          <text class="ethnic-icon" style="background: {{item.color}}">🌸</text>
+          <image class="ethnic-icon" src="{{item.icon}}" mode="aspectFill"
+            style="border: 4rpx solid {{selectedEthnic === item.key ? item.color : 'transparent'}}; background: {{item.color}}20"></image>
           <text class="ethnic-name">{{item.name}}</text>
+          <text class="ethnic-desc">{{item.desc}}</text>
         </view>
       </view>
     </scroll-view>

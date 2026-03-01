@@ -16,24 +16,27 @@
     </scroll-view>
   </view>
 
-  <!-- 类型切换 -->
+  <!-- 类型切换（pill胶囊风格）-->
   <view class="type-tabs">
-    <view 
-      class="type-item {{currentType === 'frame' ? 'active' : ''}}"
-      data-type="frame"
-      bindtap="switchType"
-    >
-      <image class="type-icon" src="/images/icons/frame.png"></image>
-      <text class="type-text">头像框</text>
+    <view class="type-pill-wrapper">
+      <view 
+        class="type-pill {{currentType === 'frame' ? 'active' : ''}}"
+        data-type="frame"
+        bindtap="switchType"
+      >
+        <text class="pill-emoji">{{currentType === 'frame' ? '🖼️' : '🖼️'}}</text>
+        <text class="pill-text">头像框</text>
+      </view>
+      <view 
+        class="type-pill {{currentType === 'sticker' ? 'active' : ''}}"
+        data-type="sticker"
+        bindtap="switchType"
+      >
+        <text class="pill-emoji">✨</text>
+        <text class="pill-text">贴纸</text>
+      </view>
     </view>
-    <view 
-      class="type-item {{currentType === 'sticker' ? 'active' : ''}}"
-      data-type="sticker"
-      bindtap="switchType"
-    >
-      <image class="type-icon" src="/images/icons/sticker.png"></image>
-      <text class="type-text">贴纸</text>
-    </view>
+    <text class="type-count">{{currentType === 'frame' ? filteredFrames.length : filteredStickers.length}} 个素材</text>
   </view>
 
   <!-- 搜索栏 -->

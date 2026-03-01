@@ -39,9 +39,18 @@ Page({
 
   loadUserInfo() {
     if (app.globalData.userInfo) {
+      const user = app.globalData.userInfo;
+      // 剩余次数 = 每日上限 - 已使用次数
+      const adRemaining   = Math.max(0, 5 - (user.adCount   || 0));
+      const shareRemaining = Math.max(0, 5 - (user.shareCount || 0));
       this.setData({
-        userInfo: app.globalData.userInfo,
-        points: app.globalData.userInfo.points || 100
+        userInfo: user,
+        points: user.points || 100,
+        adCount: adRemaining,
+        shareCount: shareRemaining,
+        groupCount: shareRemaining,
+        hasSignedToday: user.dailyCheck && user.dailyCheck.lastDate === new Date().toDateString(),
+        consecutiveDays: user.dailyCheck ? user.dailyCheck.streak : 0
       });
     }
   },
@@ -80,25 +89,21 @@ Page({
 
   async loadPointsLog() {
     try {
-      // 修复openid bug - 使用真实openid
-      const openid = await wx.cloud.getOpenId();
-
-      const res = await wx.cloud.database().collection('points_log')
-        .where({
-          _openid: openid
-        })
-        .orderBy('createTime', 'desc')
-        .limit(20)
-        .get();
-
-      const logs = (res.data || []).map(item => ({
-        ...item,
-        formatTime: formatTime(item.createTime)
-      }));
-
-      this.setData({
-        pointsLog: logs
+      // 调用云函数获取积分记录（安全可靠，由云端校验openid）
+      const res = await wx.cloud.callFunction({
+        name: 'getPointsLog',
+        data: { page: 0, pageSize: 20 }
       });
+
+      if (res.result && res.result.code === 0) {
+        const logs = (res.result.data || []).map(item => ({
+          ...item,
+          formatTime: formatTime(item.createTime)
+        }));
+        this.setData({ pointsLog: logs });
+      } else {
+        console.warn('积分记录返回异常', res.result);
+      }
     } catch (err) {
       console.error('加载积分记录失败', err);
     }
@@ -159,47 +164,64 @@ Page({
       return;
     }
 
-    wx.showModal({
-      title: '观看广告',
-      content: '观看激励广告可获得20积分（更慷慨！）',
-      confirmText: '开始观看',
-      success: (res) => {
-        if (res.confirm) {
-          wx.showLoading({ title: '加载广告中...' });
-
-          // TODO: 实际项目中需要接入广告SDK
-          // wx.createRewardedVideoAd({ adUnitId: 'your-ad-unit-id' })
-
-          setTimeout(() => {
-            wx.hideLoading();
-
-            // 模拟广告观看完成
-            this.setData({
-              points: this.data.points + 20,  // 从10改为20
-              adCount: this.data.adCount - 1
-            });
-
-            // 调用云函数记录积分
-            wx.cloud.callFunction({
-              name: 'updatePoints',
-              data: {
-                type: 'watchAd',
-                points: 20
-              }
-            }).catch(err => {
-              console.error('记录积分失败', err);
-            });
-
-            wx.showToast({
-              title: '获得20积分',
-              icon: 'success'
-            });
-          }, 2000);
+    // 接入激励视频广告 SDK
+    if (typeof wx.createRewardedVideoAd === 'function') {
+      const rewardedVideoAd = wx.createRewardedVideoAd({ adUnitId: 'your-ad-unit-id' });
+      rewardedVideoAd.onClose((status) => {
+        if (status && status.isEnded) {
+          this._syncWatchAdCloud();
+        } else {
+          wx.showToast({ title: '请看完广告才能获得积分', icon: 'none' });
         }
-      }
-    });
+      });
+      rewardedVideoAd.onError(() => {
+        wx.showToast({ title: '广告加载失败', icon: 'none' });
+      });
+      rewardedVideoAd.show();
+    } else {
+      // 开发环境模拟
+      wx.showModal({
+        title: '观看广告',
+        content: '观看激励广告可获得20积分（开发环境模拟）',
+        confirmText: '开始观看',
+        success: (res) => {
+          if (res.confirm) {
+            this._syncWatchAdCloud();
+          }
+        }
+      });
+    }
   },
 
+  async _syncWatchAdCloud() {
+    wx.showLoading({ title: '结算积分...' });
+    try {
+      const res = await wx.cloud.callFunction({
+        name: 'updatePoints',
+        data: { type: 'watchAd' }
+      });
+      wx.hideLoading();
+      if (res.result && res.result.code === 0) {
+        const earned = res.result.points || 20;
+        this.setData({
+          points: this.data.points + earned,
+          adCount: Math.max(0, this.data.adCount - 1)
+        });
+        if (app.globalData.userInfo) {
+          app.globalData.userInfo.points += earned;
+          app.globalData.userInfo.adCount = (app.globalData.userInfo.adCount || 0) + 1;
+        }
+        wx.showToast({ title: `获得${earned}积分`, icon: 'success' });
+        this.loadPointsLog();
+      } else {
+        wx.showToast({ title: res.result ? res.result.msg : '获取积分失败', icon: 'none' });
+      }
+    } catch (err) {
+      wx.hideLoading();
+      console.error('观看广告积分失败', err);
+      wx.showToast({ title: '网络异常，请稍后再试', icon: 'none' });
+    }
+  },
   handleShare() {
     if (this.data.shareCount <= 0) {
       wx.showToast({

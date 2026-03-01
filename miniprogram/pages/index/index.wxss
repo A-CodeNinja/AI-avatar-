@@ -219,7 +219,7 @@
 .ethnic-item {
   flex-shrink: 0;
   margin-right: 20rpx;
-  width: 180rpx;
+  width: 160rpx;
   padding: 20rpx 16rpx;
   border-radius: 20rpx;
   background: #F8F9FA;
@@ -231,8 +231,10 @@
 }
 
 .ethnic-item.active {
+  background: linear-gradient(135deg, rgba(102,126,234,0.12) 0%, rgba(118,75,162,0.12) 100%);
+  border-color: #667EEA;
   transform: translateY(-4rpx);
-  box-shadow: 0 8rpx 20rpx rgba(102, 126, 234, 0.4);
+  box-shadow: 0 8rpx 20rpx rgba(102, 126, 234, 0.3);
 }
 
 .ethnic-item::active {
@@ -240,26 +242,29 @@
 }
 
 .ethnic-icon {
-  width: 70rpx;
-  height: 70rpx;
+  width: 80rpx;
+  height: 80rpx;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 36rpx;
-  margin-bottom: 12rpx;
-  color: white;
+  margin-bottom: 10rpx;
+  overflow: hidden;
 }
 
 .ethnic-name {
-  font-size: 24rpx;
-  color: #666666;
-  font-weight: 500;
+  font-size: 22rpx;
+  color: #333333;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 4rpx;
+}
+
+.ethnic-desc {
+  font-size: 18rpx;
+  color: #999999;
   text-align: center;
 }
 
 .ethnic-item.active .ethnic-name {
-  color: #FFFFFF;
+  color: #667EEA;
 }
 
 /* 热门横向滚动 */

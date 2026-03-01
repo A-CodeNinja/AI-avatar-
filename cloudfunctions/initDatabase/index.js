@@ -31,6 +31,14 @@ exports.main = async (event, context) => {
       }
     }
 
+    // 初始化共享头像集合（gallery页面使用）
+    try {
+      await db.createCollection('shared_avatars');
+      console.log('创建 shared_avatars 集合成功');
+    } catch (e) {
+      console.log('shared_avatars 集合已存在');
+    }
+
     return {
       code: 0,
       msg: '数据库初始化成功',

@@ -4,17 +4,22 @@ Page({
     currentCategory: 'all',
     searchKeyword: '',
     categoryTabs: [
-      { id: 'all', name: '全部' },
-      { id: 'christmas', name: '圣诞' },
-      { id: 'midautumn', name: '中秋' },
-      { id: 'national', name: '国庆' },
-      { id: 'spring', name: '春节' },
-      { id: 'game', name: '游戏' },
-      { id: 'glasses', name: '眼镜' },
-      { id: 'crown', name: '皇冠' },
-      { id: 'hat', name: '帽子' },
-      { id: 'clip', name: '夹子' },
-      { id: 'campus', name: '校园' }
+      { id: 'all', name: '🔮 全部' },
+      { id: 'christmas', name: '🎄 圣诞' },
+      { id: 'midautumn', name: '🌕 中秋' },
+      { id: 'national', name: '🇨🇳 国庆' },
+      { id: 'spring', name: '🧧 春节' },
+      { id: 'love', name: '❤️ 爱心' },
+      { id: 'festival', name: '🎉 节日' },
+      { id: 'decoration', name: '⭐ 装饰' },
+      { id: 'birthday', name: '🎂 生日' },
+      { id: 'game', name: '🎮 游戏' },
+      { id: 'glasses', name: '🕶️ 眼镜' },
+      { id: 'crown', name: '👑 皇冠' },
+      { id: 'hat', name: '🎩 帽子' },
+      { id: 'clip', name: '📎 夹子' },
+      { id: 'campus', name: '🎓 校园' },
+      { id: 'accessory', name: '🎀 配饰' }
     ],
     frames: [
       // 圣诞分类

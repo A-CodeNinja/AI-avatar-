@@ -13,7 +13,7 @@ function formatTime(timestamp) {
   const day = String(date.getDate()).padStart(2, '0');
   return `${year}-${month}-${day}`;
 }
-
+const app = getApp();
 Page({
   data: {
     inviteCount: 0,
@@ -30,19 +30,22 @@ Page({
   },
 
   async loadInviteData() {
+    // 从 globalData 获取 openid（_id 字段就是 openid）
+    const openid = app.globalData.userInfo && app.globalData.userInfo._id;
+    if (!openid) {
+      console.warn('用户信息未就绪，跳过加载邀请数据');
+      return;
+    }
+
     try {
-      // 获取邀请统计
-      const statsRes = await wx.cloud.database().collection('invite_records')
-        .where({
-          inviterId: '{openid}'
-        })
+      const db = wx.cloud.database();
+      // 使用真实 openid 查询自定义字段 inviterId
+      const statsRes = await db.collection('invite_records')
+        .where({ inviterId: openid })
         .count();
 
-      // 获取邀请列表
-      const listRes = await wx.cloud.database().collection('invite_records')
-        .where({
-          inviterId: '{openid}'
-        })
+      const listRes = await db.collection('invite_records')
+        .where({ inviterId: openid })
         .orderBy('createTime', 'desc')
         .limit(20)
         .get();

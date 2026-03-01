@@ -22,11 +22,11 @@ Page({
     ],
     // 民族风格（新增）
     ethnicStyles: [
-      { key: 'uyghur', name: '维吾尔族', icon: '/images/xj/uyghur.png', desc: '艾德莱斯绸' },
-      { key: 'kazakh', name: '哈萨克族', icon: '/images/xj/kazakh.png', desc: '羊角纹' },
-      { key: 'mongol', name: '蒙古族', icon: '/images/xj/mongol.png', desc: '云纹' },
-      { key: 'kirgiz', name: '柯尔克孜族', icon: '/images/xj/kirgiz.png', desc: '毡绣' },
-      { key: 'tajik', name: '塔吉克族', icon: '/images/xj/tajik.png', desc: '刺绣' }
+      { key: 'uyghur', name: '维吾尔族', icon: '/images/xj/uyghur.png', desc: '艾德莱斯绸', color: '#E53935' },
+      { key: 'kazakh', name: '哈萨克族', icon: '/images/xj/kazakh.png', desc: '羊角纹', color: '#1565C0' },
+      { key: 'mongol', name: '蒙古族', icon: '/images/xj/mongol.png', desc: '云纹', color: '#2E7D32' },
+      { key: 'kirgiz', name: '柯尔克孜族', icon: '/images/xj/kirgiz.png', desc: '漡绣', color: '#AD1457' },
+      { key: 'tajik', name: '塔吉克族', icon: '/images/xj/tajik.png', desc: '刺绣', color: '#E65100' }
     ],
     // 热门头像框
     hotFrames: [
@@ -185,28 +185,56 @@ Page({
   },
 
   watchAd() {
-    wx.showModal({
-      title: '观看广告',
-      content: '观看激励广告可获得10积分',
-      success: (res) => {
-        if (res.confirm) {
-          wx.showToast({
-            title: '广告加载中...',
-            icon: 'loading'
-          });
-          // 实际项目中需要接入广告SDK
-          setTimeout(() => {
-            this.setData({
-              points: this.data.points + 10
-            });
-            wx.showToast({
-              title: '获得10积分',
-              icon: 'success'
-            });
-          }, 2000);
+    // 接入激励视频广告：广告看完后调用云函数同步积分
+    if (typeof wx.createRewardedVideoAd === 'function') {
+      const rewardedVideoAd = wx.createRewardedVideoAd({ adUnitId: 'your-ad-unit-id' });
+      rewardedVideoAd.onClose((status) => {
+        if (status && status.isEnded) {
+          this._callWatchAdPoints();
+        } else {
+          wx.showToast({ title: '请看完广告才能获得积分', icon: 'none' });
         }
+      });
+      rewardedVideoAd.onError(() => {
+        wx.showToast({ title: '广告加载失败，请稍后再试', icon: 'none' });
+      });
+      rewardedVideoAd.show();
+    } else {
+      // 开发调试环境模拟流程
+      wx.showModal({
+        title: '观看广告',
+        content: '观看激励广告可获得20积分（开发环境模拟）',
+        success: (res) => {
+          if (res.confirm) {
+            this._callWatchAdPoints();
+          }
+        }
+      });
+    }
+  },
+
+  async _callWatchAdPoints() {
+    wx.showLoading({ title: '结算积分...' });
+    try {
+      const res = await wx.cloud.callFunction({
+        name: 'updatePoints',
+        data: { type: 'watchAd' }
+      });
+      wx.hideLoading();
+      if (res.result && res.result.code === 0) {
+        const earned = res.result.points || 20;
+        this.setData({ points: this.data.points + earned });
+        if (app.globalData.userInfo) app.globalData.userInfo.points += earned;
+        wx.showToast({ title: `获得${earned}积分`, icon: 'success' });
+        app.getUserInfo();
+      } else {
+        wx.showToast({ title: res.result ? res.result.msg : '获取积分失败', icon: 'none' });
       }
-    });
+    } catch (err) {
+      wx.hideLoading();
+      console.error('观看广告积分失败', err);
+      wx.showToast({ title: '网络异常，请稍后再试', icon: 'none' });
+    }
   },
 
   async generateAvatar() {

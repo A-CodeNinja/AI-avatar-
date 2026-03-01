@@ -69,7 +69,7 @@ Page({
         ...item,
         type: item.type || 'ai',
         typeText: item.type === 'bianbian' ? '百变' : 'AI',
-        styleText: styleTextMap[item.styleType] || item.styleType,
+        styleText: styleTextMap[item.style] || styleTextMap[item.styleType] || item.style || item.styleType || '未知风格',
         formatTime: formatTime(item.createTime)
       }));
 

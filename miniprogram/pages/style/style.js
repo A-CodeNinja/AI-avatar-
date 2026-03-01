@@ -2,22 +2,22 @@ Page({
   data: {
     // 基础风格
     styles: [
-      { key: 'anime', name: '动漫', icon: '', hot: true },
-      { key: '3d', name: '3D', icon: '', hot: false },
-      { key: 'sketch', name: '素描', icon: '', hot: false },
-      { key: 'watercolor', name: '水彩', icon: '', hot: true },
-      { key: 'pixel', name: '像素', icon: '', hot: false },
-      { key: 'cartoon', name: '卡通', icon: '', hot: false },
-      { key: 'realistic', name: '写实', icon: '', hot: true },
-      { key: 'comic', name: '漫画', icon: '', hot: false }
+      { key: 'anime', name: '动漫', icon: '/images/styles/anime.png', hot: true },
+      { key: '3d', name: '3D', icon: '/images/styles/3d.png', hot: false },
+      { key: 'sketch', name: '素描', icon: '/images/styles/sketch.png', hot: false },
+      { key: 'watercolor', name: '水彩', icon: '/images/styles/watercolor.png', hot: true },
+      { key: 'pixel', name: '像素', icon: '/images/styles/pixel.png', hot: false },
+      { key: 'cartoon', name: '卡通', icon: '/images/styles/cartoon.png', hot: false },
+      { key: 'realistic', name: '写实', icon: '/images/styles/realistic.png', hot: true },
+      { key: 'comic', name: '漫画', icon: '/images/styles/comic.png', hot: false }
     ],
     // 民族风格
     ethnicStyles: [
-      { key: 'uyghur', name: '维吾尔族', icon: '', desc: '艾德莱斯绸', color: '#E63946' },
-      { key: 'kazakh', name: '哈萨克族', icon: '', desc: '羊角纹', color: '#457B9D' },
-      { key: 'mongol', name: '蒙古族', icon: '', desc: '云纹', color: '#2D6A4F' },
-      { key: 'kirgiz', name: '柯尔克孜族', icon: '', desc: '毡绣', color: '#D62828' },
-      { key: 'tajik', name: '塔吉克族', icon: '', desc: '刺绣', color: '#9B2222' }
+      { key: 'uyghur', name: '维吾尔族', icon: '/images/xj/uyghur.png', desc: '艾德莱斯绸', color: '#E53935' },
+      { key: 'kazakh', name: '哈萨克族', icon: '/images/xj/kazakh.png', desc: '羊角纹', color: '#1565C0' },
+      { key: 'mongol', name: '蒙古族', icon: '/images/xj/mongol.png', desc: '云纹', color: '#2E7D32' },
+      { key: 'kirgiz', name: '柯尔克孜族', icon: '/images/xj/kirgiz.png', desc: '毡绣', color: '#AD1457' },
+      { key: 'tajik', name: '塔吉克族', icon: '/images/xj/tajik.png', desc: '刺绣', color: '#E65100' }
     ],
     selectedStyle: 'anime',
     selectedEthnic: null,

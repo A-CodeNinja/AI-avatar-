@@ -10,7 +10,7 @@
         data-style="{{item.key}}"
         bindtap="selectStyle"
       >
-        <view class="style-icon">🎨</view>
+        <image class="style-icon-img" src="{{item.icon}}" mode="aspectFill"></image>
         <view class="style-name">{{item.name}}</view>
         <view wx:if="{{item.hot}}" class="hot-tag">热门</view>
       </view>
@@ -32,7 +32,7 @@
         data-ethnic="{{item.key}}"
         bindtap="selectEthnic"
       >
-        <view class="ethnic-icon" style="background: {{item.color}}">🌸</view>
+        <image class="ethnic-icon" src="{{item.icon}}" mode="aspectFill" style="border: 2rpx solid {{item.color}}"></image>
         <view class="ethnic-name">{{item.name}}</view>
         <view class="ethnic-desc">{{item.desc}}</view>
       </view>
