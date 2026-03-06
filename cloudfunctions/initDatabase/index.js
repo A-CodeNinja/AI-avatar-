@@ -39,11 +39,25 @@ exports.main = async (event, context) => {
       console.log('shared_avatars 集合已存在');
     }
 
+    try {
+      await db.createCollection('avatar_likes');
+      console.log('创建 avatar_likes 集合成功');
+    } catch (e) {
+      console.log('avatar_likes 集合已存在');
+    }
+
+    try {
+      await db.createCollection('feedbacks');
+      console.log('创建 feedbacks 集合成功');
+    } catch (e) {
+      console.log('feedbacks 集合已存在');
+    }
+
     return {
       code: 0,
       msg: '数据库初始化成功',
       data: {
-        collections: ['users', 'points_log', 'images', 'materials', 'invites'],
+        collections: ['users', 'points_log', 'images', 'materials', 'invites', 'shared_avatars', 'avatar_likes', 'feedbacks'],
         materialsAdded: frames.length
       }
     };

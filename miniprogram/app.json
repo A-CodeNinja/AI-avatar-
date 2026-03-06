@@ -11,7 +11,11 @@
     "pages/daily/daily",
     "pages/tools/tools",
     "pages/invite/invite",
-    "pages/history/history"
+    "pages/history/history",
+    "pages/recharge/recharge",
+    "pages/example/index",
+    "pages/auth/auth",
+    "pages/feedback/feedback"
   ],
   "window": {
     "backgroundColor": "#F5F7FA",

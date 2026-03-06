@@ -2,11 +2,11 @@
   <!-- 用户信息头部 -->
   <view class="user-header">
     <view class="user-card">
-      <view class="user-left">
+      <view class="user-left" bindtap="onTapAvatar">
         <image class="user-avatar" src="{{userInfo.avatarUrl || '/images/icons/avatar.png'}}"></image>
         <view class="user-info">
           <text class="user-name">{{userInfo.nickName || '微信用户'}}</text>
-          <text class="user-id">ID: {{userId || '888888'}}</text>
+          <text class="user-id">{{userInfo.nickName ? ('ID: ' + (userId || '888888')) : '点击头像授权登录'}}</text>
         </view>
       </view>
       <view class="user-right">

@@ -52,6 +52,12 @@ Page({
   },
 
   onLoad() {
+    app.getUserInfo((userInfo) => {
+      this.setData({
+        userInfo,
+        points: userInfo.points || 100
+      });
+    });
     this.loadUserInfo();
     this.getRandomItems();
   },
@@ -238,6 +244,22 @@ Page({
   },
 
   async generateAvatar() {
+    if (!this.data.userInfo || !this.data.userInfo.nickName) {
+      wx.showModal({
+        title: '请先登录',
+        content: '登录后才能生成头像，是否现在去登录？',
+        confirmText: '去登录',
+        success: (res) => {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '/pages/auth/auth?redirect=/pages/index/index'
+            });
+          }
+        }
+      });
+      return;
+    }
+
     if (!this.data.selectedImage) {
       wx.showToast({
         title: '请先选择图片',

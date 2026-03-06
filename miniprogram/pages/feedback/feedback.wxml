@@ -1,0 +1,27 @@
+<view class="container">
+  <view class="card">
+    <text class="title">问题反馈</text>
+    <text class="desc">页面打不开、建议新功能、素材需求都可以告诉我们。</text>
+
+    <textarea
+      class="content-input"
+      maxlength="500"
+      placeholder="请描述你遇到的问题或建议（至少5个字）"
+      bindinput="onInputContent"
+      value="{{content}}"
+    ></textarea>
+
+    <input
+      class="contact-input"
+      type="text"
+      maxlength="50"
+      placeholder="联系方式（微信号或手机号，选填）"
+      bindinput="onInputContact"
+      value="{{contact}}"
+    />
+
+    <button class="submit-btn" bindtap="submitFeedback" loading="{{submitting}}" disabled="{{submitting}}">
+      提交反馈
+    </button>
+  </view>
+</view>

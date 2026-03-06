@@ -1,0 +1,13 @@
+<view class="container">
+  <view class="card">
+    <image class="logo" src="/images/icons/avatar.png" mode="aspectFill"></image>
+    <text class="title">登录后开始制作头像</text>
+    <text class="desc">授权微信昵称和头像，用于生成记录、头像墙展示和积分体系。</text>
+
+    <button class="auth-btn" bindtap="handleWechatLogin" loading="{{isSubmitting}}" disabled="{{isSubmitting}}">
+      微信一键登录
+    </button>
+
+    <text class="tip">仅用于小程序内展示，不会用于其他用途。</text>
+  </view>
+</view>

@@ -81,7 +81,8 @@ Page({
         name: item.nickname || '用户作品',
         likes: item.likes || 0,
         category: 'shared',
-        isShared: true
+        isShared: true,
+        isLiked: false
       }));
 
       this.setData({ sharedImages });
@@ -90,6 +91,38 @@ Page({
       }
     } catch (err) {
       console.error('加载共享头像失败', err);
+    }
+  },
+
+  async handleLike(e) {
+    const avatarId = e.currentTarget.dataset.id;
+    if (!avatarId) return;
+
+    try {
+      const res = await wx.cloud.callFunction({
+        name: 'toggleAvatarLike',
+        data: { avatarId }
+      });
+
+      if (!res.result || res.result.code !== 0) {
+        throw new Error((res.result && res.result.msg) || '点赞失败');
+      }
+
+      const updated = this.data.sharedImages.map((item) => {
+        if (item.id !== avatarId) return item;
+        const nextLikes = Math.max(0, (item.likes || 0) + (res.result.delta || 0));
+        return {
+          ...item,
+          likes: nextLikes,
+          isLiked: !!res.result.liked
+        };
+      });
+
+      this.setData({ sharedImages: updated });
+      this.filterImages();
+      wx.showToast({ title: res.result.msg || '操作成功', icon: 'none' });
+    } catch (err) {
+      wx.showToast({ title: err.message || '点赞失败', icon: 'none' });
     }
   },
 

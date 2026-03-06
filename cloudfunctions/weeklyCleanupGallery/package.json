@@ -1,0 +1,9 @@
+{
+  "name": "weeklyCleanupGallery",
+  "version": "1.0.0",
+  "description": "每周清理头像墙保留高赞",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

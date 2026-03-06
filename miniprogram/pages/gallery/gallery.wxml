@@ -41,7 +41,7 @@
           </view>
           <!-- 悬停操作层 -->
           <view class="gallery-action-bar">
-            <view class="like-btn">
+            <view class="like-btn" wx:if="{{item.isShared}}" data-id="{{item.id}}" catchtap="handleLike">
               <image class="like-icon-sm" src="/images/icons/like.png"></image>
               <text class="like-num">{{item.likes || 0}}</text>
             </view>
