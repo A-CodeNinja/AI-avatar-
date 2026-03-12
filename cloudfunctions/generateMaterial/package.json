@@ -1,0 +1,10 @@
+{
+  "name": "generateMaterial",
+  "version": "1.0.0",
+  "description": "AI素材批量生成云函数（头像框/贴纸/背景）",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3",
+    "axios": "^1.6.2"
+  }
+}

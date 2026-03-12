@@ -1,5 +1,4 @@
 <view class="container">
-  <!-- 用户信息头部 -->
   <view class="user-header">
     <view class="user-card">
       <view class="user-left" bindtap="onTapAvatar">
@@ -17,16 +16,17 @@
       </view>
     </view>
 
-    <!-- 统计数据 -->
     <view class="stats-row">
       <view class="stat-item" bindtap="goToHistory" data-type="ai">
         <text class="stat-value">{{aiCount}}</text>
         <text class="stat-label">AI头像</text>
       </view>
+      <view class="stat-divider"></view>
       <view class="stat-item" bindtap="goToHistory" data-type="bianbian">
         <text class="stat-value">{{bianbianCount}}</text>
         <text class="stat-label">百变头像</text>
       </view>
+      <view class="stat-divider"></view>
       <view class="stat-item" bindtap="goToHistory" data-type="all">
         <text class="stat-value">{{totalGenerate}}</text>
         <text class="stat-label">全部生成</text>
@@ -34,39 +34,37 @@
     </view>
   </view>
 
-  <!-- 积分快捷入口（替换充值区域）-->
   <view class="quick-actions">
     <view class="quick-item" bindtap="goToSignin">
       <view class="quick-icon-wrap signin-bg">
-        <text class="quick-emoji">📅</text>
+        <image class="quick-icon" src="/images/icons/calendar.svg" mode="aspectFit"></image>
       </view>
       <text class="quick-label">每日签到</text>
       <text class="quick-sub">领积分</text>
     </view>
     <view class="quick-item" bindtap="goToInvite">
       <view class="quick-icon-wrap invite-bg">
-        <text class="quick-emoji">🎁</text>
+        <image class="quick-icon" src="/images/icons/invite.png" mode="aspectFit"></image>
       </view>
       <text class="quick-label">邀请好友</text>
       <text class="quick-sub">+20积分</text>
     </view>
     <view class="quick-item" bindtap="goToTools">
       <view class="quick-icon-wrap tools-bg">
-        <text class="quick-emoji">🎮</text>
+        <image class="quick-icon" src="/images/icons/tools.png" mode="aspectFit"></image>
       </view>
       <text class="quick-label">更多玩法</text>
       <text class="quick-sub">赚积分</text>
     </view>
     <view class="quick-item" open-type="contact">
       <view class="quick-icon-wrap contact-bg">
-        <text class="quick-emoji">💬</text>
+        <image class="quick-icon" src="/images/icons/contact.png" mode="aspectFit"></image>
       </view>
       <text class="quick-label">联系客服</text>
       <text class="quick-sub">问题反馈</text>
     </view>
   </view>
 
-  <!-- 功能菜单 -->
   <view class="menu-section">
     <view class="menu-group">
       <view 
@@ -84,12 +82,11 @@
         </view>
         <view class="menu-right">
           <text class="menu-desc" wx:if="{{item.desc}}">{{item.desc}}</text>
-          <image class="menu-arrow" src="/images/arrow.svg"></image>
+          <image class="menu-arrow" src="/images/icons/arrow-right.svg"></image>
         </view>
       </view>
     </view>
 
-    <!-- 其他功能 -->
     <view class="menu-group">
       <view class="menu-item" bindtap="goToTools">
         <view class="menu-left">
@@ -98,7 +95,7 @@
           </view>
           <text class="menu-title">更多好玩的</text>
         </view>
-        <image class="menu-arrow" src="/images/arrow.svg"></image>
+        <image class="menu-arrow" src="/images/icons/arrow-right.svg"></image>
       </view>
       <view class="menu-item" bindtap="goToInvite">
         <view class="menu-left">
@@ -109,7 +106,7 @@
         </view>
         <view class="menu-right">
           <text class="menu-reward">+20积分/人</text>
-          <image class="menu-arrow" src="/images/arrow.svg"></image>
+          <image class="menu-arrow" src="/images/icons/arrow-right.svg"></image>
         </view>
       </view>
       <view class="menu-item" open-type="contact">
@@ -119,12 +116,11 @@
           </view>
           <text class="menu-title">联系客服</text>
         </view>
-        <image class="menu-arrow" src="/images/arrow.svg"></image>
+        <image class="menu-arrow" src="/images/icons/arrow-right.svg"></image>
       </view>
     </view>
   </view>
 
-  <!-- 版本信息 -->
   <view class="version-info">
     <text class="version-text">当前版本 v1.0.0</text>
   </view>

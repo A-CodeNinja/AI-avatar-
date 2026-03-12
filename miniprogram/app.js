@@ -5,44 +5,52 @@ App({
       userInfo: null,
       points: 100,
       isCloudReady: false,
-      userInfoReadyCallbacks: [] // 等待用户信息就绪的回调队列
+      userInfoReadyCallbacks: []
     };
 
+    this.initCloud();
+  },
+
+  initCloud: function() {
+    const that = this;
+    
     if (!wx.cloud) {
       console.error("请使用 2.2.3 或以上的基础库以使用云能力");
-    } else {
-      if (this.globalData.env) {
-        wx.cloud.init({
-          env: this.globalData.env,
-          traceUser: true,
-        });
-        this.globalData.isCloudReady = true;
-        this.getUserInfo();
-      } else {
-        console.warn("云环境ID未配置，请先在 app.js 中配置 env");
-      }
+      return;
+    }
+
+    if (!this.globalData.env) {
+      console.warn("云环境ID未配置，请先在 app.js 中配置 env");
+      return;
+    }
+
+    try {
+      wx.cloud.init({
+        env: this.globalData.env,
+        traceUser: true,
+      });
+      
+      this.globalData.isCloudReady = true;
+      console.log("云开发初始化成功，环境:", this.globalData.env);
+      
+      this.getUserInfo();
+    } catch (err) {
+      console.error("云开发初始化失败:", err);
     }
   },
 
-  /**
-   * 获取用户信息，支持回调（页面可传入 cb 等待数据就绪）
-   * 用法：app.getUserInfo(userInfo => { ... })
-   */
   getUserInfo: function(cb) {
     const that = this;
 
-    // 如果已有数据，直接回调
     if (this.globalData.userInfo) {
       cb && cb(this.globalData.userInfo);
       return;
     }
 
-    // 有回调则加入等待队列
     if (cb) {
       this.globalData.userInfoReadyCallbacks.push(cb);
     }
 
-    // 避免重复请求
     if (this._gettingUserInfo) return;
     this._gettingUserInfo = true;
 
@@ -54,21 +62,37 @@ App({
 
     wx.cloud.callFunction({
       name: 'getUserInfo',
+      data: {},
       success: res => {
         that._gettingUserInfo = false;
+        console.log("getUserInfo云函数返回:", res);
+        
         if (res.result && res.result.code === 0) {
           that.globalData.userInfo = res.result.data;
-          that.globalData.points = res.result.data.points;
-          console.log("用户信息获取成功");
-          // 执行所有等待中的回调
+          that.globalData.points = res.result.data.points || 100;
+          console.log("用户信息获取成功，积分:", that.globalData.points);
+          
           that.globalData.userInfoReadyCallbacks.forEach(fn => fn(res.result.data));
           that.globalData.userInfoReadyCallbacks = [];
+        } else {
+          console.warn("获取用户信息返回异常:", res.result);
         }
       },
       fail: err => {
         that._gettingUserInfo = false;
-        console.warn('获取用户信息失败（云函数可能未部署）', err);
+        console.warn("获取用户信息失败，可能原因:");
+        console.warn("1. 云函数 getUserInfo 未部署");
+        console.warn("2. 云环境ID配置错误");
+        console.warn("3. 数据库集合 users 未创建");
+        console.warn("错误详情:", err);
       }
     });
+  },
+
+  updateUserInfo: function(userInfo) {
+    this.globalData.userInfo = userInfo;
+    if (userInfo.points !== undefined) {
+      this.globalData.points = userInfo.points;
+    }
   }
 });

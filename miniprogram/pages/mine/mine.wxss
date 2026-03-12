@@ -1,10 +1,11 @@
 .container {
   min-height: 100vh;
   background: #F5F7FA;
-  padding-bottom: 40rpx;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-bottom: calc(40rpx + env(safe-area-inset-bottom));
 }
 
-/* 用户头部 */
 .user-header {
   background: linear-gradient(180deg, #667EEA 0%, #764BA2 100%);
   padding: 40rpx 30rpx 60rpx;
@@ -27,11 +28,18 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30rpx;
+  position: relative;
+  z-index: 1;
 }
 
 .user-left {
   display: flex;
   align-items: center;
+  transition: all 0.3s ease;
+}
+
+.user-left:active {
+  opacity: 0.8;
 }
 
 .user-avatar {
@@ -40,6 +48,7 @@
   border-radius: 50%;
   border: 4rpx solid rgba(255, 255, 255, 0.3);
   margin-right: 20rpx;
+  background: rgba(255,255,255,0.2);
 }
 
 .user-info {
@@ -89,10 +98,13 @@
 .stats-row {
   display: flex;
   justify-content: space-around;
+  align-items: center;
   background: rgba(255, 255, 255, 0.15);
   border-radius: 20rpx;
   padding: 24rpx 0;
   backdrop-filter: blur(10rpx);
+  position: relative;
+  z-index: 1;
 }
 
 .stat-item {
@@ -101,19 +113,17 @@
   align-items: center;
   padding: 0 30rpx;
   flex: 1;
+  transition: all 0.3s ease;
 }
 
-.stat-item::after {
-  content: '';
+.stat-item:active {
+  opacity: 0.7;
+}
+
+.stat-divider {
   width: 1rpx;
   height: 40rpx;
   background: rgba(255, 255, 255, 0.3);
-  position: absolute;
-  right: 0;
-}
-
-.stat-item:last-child::after {
-  display: none;
 }
 
 .stat-value {
@@ -128,7 +138,6 @@
   color: rgba(255, 255, 255, 0.85);
 }
 
-/* 快捷操作区域（替代充值区域）*/
 .quick-actions {
   display: flex;
   background: #FFFFFF;
@@ -145,6 +154,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: all 0.3s ease;
+}
+
+.quick-item:active {
+  transform: scale(0.95);
 }
 
 .quick-icon-wrap {
@@ -157,8 +171,9 @@
   margin-bottom: 12rpx;
 }
 
-.quick-emoji {
-  font-size: 40rpx;
+.quick-icon {
+  width: 44rpx;
+  height: 44rpx;
 }
 
 .signin-bg { background: linear-gradient(135deg, #FFD93D 0%, #FF6B6B 100%); }
@@ -178,9 +193,6 @@
   color: #FF6B6B;
 }
 
-
-
-/* 菜单区域 */
 .menu-section {
   margin: 0 30rpx;
 }
@@ -199,10 +211,15 @@
   align-items: center;
   padding: 28rpx 30rpx;
   border-bottom: 1rpx solid #F5F5F5;
+  transition: all 0.3s ease;
 }
 
 .menu-item:last-child {
   border-bottom: none;
+}
+
+.menu-item:active {
+  background: #F8F9FA;
 }
 
 .menu-left {
@@ -257,7 +274,6 @@
   height: 24rpx;
 }
 
-/* 版本信息 */
 .version-info {
   text-align: center;
   padding: 40rpx 0;

@@ -1,0 +1,55 @@
+/*
+  主题样式集中管理（供小步迭代使用）
+  说明：微信小程序的 WXSS 对原生 CSS 变量支持有限，
+  这里通过一组可复用的类来实现主题与常用组件样式。
+*/
+
+/* 颜色与主题 */
+.bg-main { background-color: #F5F7FA; }
+.color-primary { color: #667EEA; }
+.color-accent { color: #8B5CF6; }
+.text-muted { color: #9CA3AF; }
+.bg-primary { background-color: #667EEA; color: #ffffff; }
+.bg-accent { background-color: #8B5CF6; color: #ffffff; }
+
+/* 按钮 */
+.btn-primary {
+  background-color: #667EEA;
+  color: #ffffff;
+  border-radius: 14rpx;
+  padding: 20rpx 28rpx;
+  text-align: center;
+  display: inline-block;
+}
+.btn-secondary {
+  background-color: #EEF2FF;
+  color: #334155;
+  border-radius: 14rpx;
+  padding: 18rpx 26rpx;
+  text-align: center;
+  display: inline-block;
+}
+
+/* 卡片与阴影（稍增强） */
+.card-soft {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  box-shadow: 0 6rpx 24rpx rgba(102,126,234,0.08);
+  padding: 30rpx;
+}
+
+/* 排版 */
+.container-pad { padding: 24rpx; }
+.h1 { font-size: 36rpx; font-weight: 600; color: #111827; }
+.h2 { font-size: 32rpx; font-weight: 600; color: #111827; }
+.small { font-size: 24rpx; color: #6B7280; }
+
+/* 辅助 */
+.rounded { border-radius: 12rpx; }
+.muted { color: #6B7280; }
+
+/* 便于后续替换的命名常量（仅注释提醒）
+   --primary: #667EEA
+   --accent:  #8B5CF6
+   --bg:      #F5F7FA
+*/

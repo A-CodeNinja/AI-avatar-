@@ -25,7 +25,7 @@ Page({
       { key: 'uyghur', name: '维吾尔族', icon: '/images/xj/uyghur.png', desc: '艾德莱斯绸', color: '#E53935' },
       { key: 'kazakh', name: '哈萨克族', icon: '/images/xj/kazakh.png', desc: '羊角纹', color: '#1565C0' },
       { key: 'mongol', name: '蒙古族', icon: '/images/xj/mongol.png', desc: '云纹', color: '#2E7D32' },
-      { key: 'kirgiz', name: '柯尔克孜族', icon: '/images/xj/kirgiz.png', desc: '漡绣', color: '#AD1457' },
+      { key: 'kirgiz', name: '柯尔克孜族', icon: '/images/xj/kirgiz.png', desc: '毡绣', color: '#AD1457' },
       { key: 'tajik', name: '塔吉克族', icon: '/images/xj/tajik.png', desc: '刺绣', color: '#E65100' }
     ],
     // 热门头像框
@@ -60,6 +60,7 @@ Page({
     });
     this.loadUserInfo();
     this.getRandomItems();
+    this.loadHotMaterialsFromCloud();
   },
 
   onShow() {
@@ -115,6 +116,47 @@ Page({
       [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
     }
     return array;
+  },
+
+  async loadHotMaterialsFromCloud() {
+    try {
+      const db = wx.cloud.database();
+      const [frameRes, stickerRes] = await Promise.all([
+        db.collection('materials')
+          .where({ type: 'frame', isHot: true, status: 1 })
+          .orderBy('sortOrder', 'asc')
+          .limit(6)
+          .get(),
+        db.collection('materials')
+          .where({ type: 'sticker', isHot: true, status: 1 })
+          .orderBy('sortOrder', 'asc')
+          .limit(6)
+          .get()
+      ]);
+      const updates = {};
+      if (frameRes.data && frameRes.data.length > 0) {
+        updates.hotFrames = frameRes.data.map((m, i) => ({
+          id: m._id || i + 1,
+          name: m.name,
+          image: m.cloudUrl || m.image,
+          category: m.category || 'other'
+        }));
+      }
+      if (stickerRes.data && stickerRes.data.length > 0) {
+        updates.hotStickers = stickerRes.data.map((m, i) => ({
+          id: m._id || i + 1,
+          name: m.name,
+          image: m.cloudUrl || m.image,
+          category: m.category || 'other'
+        }));
+      }
+      if (Object.keys(updates).length > 0) {
+        this.setData(updates);
+      }
+    } catch (err) {
+      // 静默失败，使用本地随机数据
+      console.warn('云端热门素材加载失败，使用本地数据', err);
+    }
   },
 
   selectStyle(e) {

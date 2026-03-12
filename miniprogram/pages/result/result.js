@@ -14,6 +14,14 @@ const styleTextMap = {
   fantasy: '幻想风', sweet: '甜心', cool: '酷炫', dreamy: '梦幻'
 };
 
+const ethnicNameMap = {
+  uyghur: '维吾尔族',
+  kazakh: '哈萨克族',
+  mongol: '蒙古族',
+  kirgiz: '柯尔克孜族',
+  tajik: '塔吉克族'
+};
+
 Page({
   data: {
     fileID: '',
@@ -24,6 +32,7 @@ Page({
     styleText: '',
     ethnic: 'none',
     selectedFrame: '',
+    frameSectionTitle: '热门头像框',
     isSaved: false,
     isSharedToGallery: false,
     frames: [
@@ -37,6 +46,8 @@ Page({
 
   onLoad(options) {
     const { fileID = '', type = 'ai', style = '', ethnic = 'none' } = options;
+    const ethnicName = ethnicNameMap[ethnic];
+    const frameSectionTitle = ethnicName ? `${ethnicName}特色边框` : '热门头像框';
     this.setData({
       fileID,
       type,
@@ -44,10 +55,12 @@ Page({
       style,
       typeText: typeTextMap[type] || 'AI头像',
       styleText: styleTextMap[style] || style || '',
+      frameSectionTitle
     });
     if (fileID) {
       this.downloadImage();
     }
+    this.loadFramesFromCloud(ethnic);
   },
 
   async downloadImage() {
@@ -60,6 +73,28 @@ Page({
       wx.showToast({ title: '加载失败', icon: 'none' });
     } finally {
       wx.hideLoading();
+    }
+  },
+
+  async loadFramesFromCloud(ethnic) {
+    try {
+      const db = wx.cloud.database();
+      const query = ethnic && ethnic !== 'none'
+        ? db.collection('materials').where({ type: 'frame', ethnic, status: 1 })
+        : db.collection('materials').where({ type: 'frame', isHot: true, status: 1 });
+      const res = await query.orderBy('sortOrder', 'asc').limit(8).get();
+      if (res.data && res.data.length > 0) {
+        this.setData({
+          frames: res.data.map((m, idx) => ({
+            id: m._id || idx + 1,
+            name: m.name,
+            path: m.cloudUrl || m.image
+          }))
+        });
+      }
+    } catch (err) {
+      // 静默失败，保留默认帧数组
+      console.warn('从云端加载边框失败，使用默认数据', err);
     }
   },
 

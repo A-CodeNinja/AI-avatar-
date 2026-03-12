@@ -3,7 +3,6 @@
   background: #F5F7FA;
 }
 
-/* 分类标签 */
 .tabs-wrapper {
   background: #FFFFFF;
   padding: 20rpx 0;
@@ -31,13 +30,17 @@
   transition: all 0.3s ease;
 }
 
+.tab-item:active {
+  transform: scale(0.95);
+}
+
 .tab-item.active {
   background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
   color: #FFFFFF;
   font-weight: 500;
+  box-shadow: 0 4rpx 12rpx rgba(102, 126, 234, 0.3);
 }
 
-/* 类型切换 - pill风格 */
 .type-tabs {
   display: flex;
   align-items: center;
@@ -63,13 +66,18 @@
   transition: all 0.25s ease;
 }
 
+.type-pill:active {
+  transform: scale(0.95);
+}
+
 .type-pill.active {
   background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
   box-shadow: 0 4rpx 16rpx rgba(102, 126, 234, 0.4);
 }
 
-.pill-emoji {
-  font-size: 32rpx;
+.pill-icon {
+  width: 32rpx;
+  height: 32rpx;
   margin-right: 10rpx;
 }
 
@@ -92,8 +100,6 @@
   border-radius: 20rpx;
 }
 
-
-/* 搜索栏 */
 .search-bar {
   display: flex;
   align-items: center;
@@ -102,6 +108,11 @@
   padding: 20rpx 30rpx;
   border-radius: 50rpx;
   box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.search-bar:focus-within {
+  box-shadow: 0 4rpx 20rpx rgba(102, 126, 234, 0.2);
 }
 
 .search-icon {
@@ -116,12 +127,13 @@
   color: #333333;
 }
 
-/* 内容区域 */
 .content-section {
-  padding: 0 20rpx 40rpx;
+  padding: 0 20rpx;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-bottom: calc(40rpx + env(safe-area-inset-bottom));
 }
 
-/* 头像框网格 */
 .material-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -136,7 +148,7 @@
   transition: all 0.3s ease;
 }
 
-.material-item::active {
+.material-item:active {
   transform: scale(0.98);
 }
 
@@ -182,7 +194,6 @@
   color: #999999;
 }
 
-/* 贴纸网格 */
 .sticker-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -200,8 +211,8 @@
   transition: all 0.3s ease;
 }
 
-.sticker-item::active {
-  transform: scale(0.98);
+.sticker-item:active {
+  transform: scale(0.95);
 }
 
 .sticker-wrapper {
@@ -229,7 +240,6 @@
   width: 100%;
 }
 
-/* 空状态 */
 .empty-state {
   display: flex;
   flex-direction: column;

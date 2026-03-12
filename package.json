@@ -1,0 +1,14 @@
+{
+  "name": "ai-avatar-tooling",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Tooling scripts for AI avatar mini program",
+  "scripts": {
+    "tabbar:build": "node miniprogram/images/tabbar/convertSvgToPng.js",
+    "cloud:install": "node scripts/install-cloud-deps.js",
+    "cloud:check": "node scripts/check-cloud-links.js"
+  },
+  "devDependencies": {
+    "sharp": "^0.33.5"
+  }
+}

@@ -87,8 +87,59 @@ Page({
     filteredStickers: []
   },
 
-  onLoad() {
+  onLoad(options) {
+    // 支持从首页带类型参数跳转
+    if (options && options.type) {
+      this.setData({ currentType: options.type });
+    }
     this.filterMaterials();
+    this.loadFromCloud();
+  },
+
+  async loadFromCloud() {
+    try {
+      const db = wx.cloud.database();
+      const [frameRes, stickerRes] = await Promise.all([
+        db.collection('materials')
+          .where({ type: 'frame', status: 1 })
+          .orderBy('sortOrder', 'asc')
+          .limit(100)
+          .get(),
+        db.collection('materials')
+          .where({ type: 'sticker', status: 1 })
+          .orderBy('sortOrder', 'asc')
+          .limit(100)
+          .get()
+      ]);
+
+      const updates = {};
+      if (frameRes.data && frameRes.data.length > 0) {
+        updates.frames = frameRes.data.map((m, i) => ({
+          id: m._id || i + 1,
+          name: m.name,
+          image: m.cloudUrl || m.image,
+          category: m.category || 'other',
+          categoryName: m.categoryName || m.category || '其他',
+          tag: m.isHot ? '热门' : (m.isNew ? '新' : undefined)
+        }));
+      }
+      if (stickerRes.data && stickerRes.data.length > 0) {
+        updates.stickers = stickerRes.data.map((m, i) => ({
+          id: m._id || i + 1,
+          name: m.name,
+          image: m.cloudUrl || m.image,
+          category: m.category || 'other',
+          categoryName: m.categoryName || m.category || '其他',
+          tag: m.isHot ? '热门' : undefined
+        }));
+      }
+      if (Object.keys(updates).length > 0) {
+        this.setData(updates);
+        this.filterMaterials();
+      }
+    } catch (err) {
+      console.warn('从云端加载素材失败，使用本地数据', err);
+    }
   },
 
   switchType(e) {

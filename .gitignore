@@ -64,7 +64,7 @@ build/
 # AI工具相关（根据你的项目添加）
 .trae/
 .codebuddy/
-
+skills_system/
 # 下载的素材文件（根据需求调整）
 miniprogram/images/temp/
 miniprogram/images/cache/

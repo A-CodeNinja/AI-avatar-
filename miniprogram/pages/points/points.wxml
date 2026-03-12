@@ -1,5 +1,4 @@
 <view class="container">
-  <!-- 头部积分卡片 -->
   <view class="points-header">
     <view class="points-card">
       <view class="points-main">
@@ -10,7 +9,6 @@
     </view>
   </view>
 
-  <!-- 签到区域 -->
   <view class="sign-section">
     <view class="section-header">
       <text class="section-title">每日签到</text>
@@ -28,7 +26,9 @@
         >
           <text class="day-label">{{item.day}}</text>
           <text class="day-points" wx:if="{{item.points}}">+{{item.points}}</text>
-          <view class="day-icon" wx:if="{{item.signed}}">✓</view>
+          <view class="day-icon" wx:if="{{item.signed}}">
+            <image class="check-icon" src="/images/icons/check.svg" mode="aspectFit"></image>
+          </view>
         </view>
       </view>
     </view>
@@ -41,7 +41,6 @@
     </button>
   </view>
 
-  <!-- 获取积分任务 -->
   <view class="tasks-section">
     <view class="section-header">
       <text class="section-title">获取积分</text>
@@ -49,7 +48,9 @@
     <view class="task-list">
       <view class="task-item" bindtap="handleWatchAd">
         <view class="task-left">
-          <image class="task-icon" src="/images/icons/ad.png"></image>
+          <view class="task-icon-wrap ad-bg">
+            <image class="task-icon" src="/images/icons/star.svg" mode="aspectFit"></image>
+          </view>
           <view class="task-info">
             <text class="task-name">观看激励广告</text>
             <text class="task-desc">观看完整视频</text>
@@ -63,7 +64,9 @@
 
       <view class="task-item" bindtap="handleShare">
         <view class="task-left">
-          <image class="task-icon" src="/images/icons/share.png"></image>
+          <view class="task-icon-wrap share-bg">
+            <image class="task-icon" src="/images/icons/share.svg" mode="aspectFit"></image>
+          </view>
           <view class="task-info">
             <text class="task-name">分享给好友</text>
             <text class="task-desc">分享到微信好友</text>
@@ -77,7 +80,9 @@
 
       <view class="task-item" bindtap="handleShareGroup">
         <view class="task-left">
-          <image class="task-icon" src="/images/icons/group.png"></image>
+          <view class="task-icon-wrap group-bg">
+            <image class="task-icon" src="/images/icons/group.png" mode="aspectFit"></image>
+          </view>
           <view class="task-info">
             <text class="task-name">分享到群</text>
             <text class="task-desc">分享到微信群</text>
@@ -91,7 +96,9 @@
 
       <view class="task-item" bindtap="goToInvite">
         <view class="task-left">
-          <image class="task-icon" src="/images/icons/invite.png"></image>
+          <view class="task-icon-wrap invite-bg">
+            <image class="task-icon" src="/images/icons/invite.png" mode="aspectFit"></image>
+          </view>
           <view class="task-info">
             <text class="task-name">邀请好友</text>
             <text class="task-desc">好友注册可得20积分</text>
@@ -105,32 +112,38 @@
     </view>
   </view>
 
-  <!-- 更多好玩 -->
   <view class="fun-section">
     <view class="section-header">
       <text class="section-title">更多好玩</text>
     </view>
     <view class="fun-grid">
       <view class="fun-item" bindtap="handleFun" data-type="ptu">
-        <image class="fun-icon" src="/images/fun/ptu.png"></image>
+        <view class="fun-icon-wrap">
+          <image class="fun-icon" src="/images/fun/ptu.png" mode="aspectFit"></image>
+        </view>
         <text class="fun-name">P图工具</text>
       </view>
       <view class="fun-item" bindtap="handleFun" data-type="poster">
-        <image class="fun-icon" src="/images/fun/poster.png"></image>
+        <view class="fun-icon-wrap">
+          <image class="fun-icon" src="/images/fun/poster.png" mode="aspectFit"></image>
+        </view>
         <text class="fun-name">AI海报</text>
       </view>
       <view class="fun-item" bindtap="handleFun" data-type="logo">
-        <image class="fun-icon" src="/images/fun/logo.png"></image>
+        <view class="fun-icon-wrap">
+          <image class="fun-icon" src="/images/fun/logo.png" mode="aspectFit"></image>
+        </view>
         <text class="fun-name">AI Logo</text>
       </view>
       <view class="fun-item" bindtap="goToDaily">
-        <image class="fun-icon" src="/images/fun/daily.png"></image>
+        <view class="fun-icon-wrap">
+          <image class="fun-icon" src="/images/fun/daily.png" mode="aspectFit"></image>
+        </view>
         <text class="fun-name">每日一言</text>
       </view>
     </view>
   </view>
 
-  <!-- 积分记录 -->
   <view class="log-section" wx:if="{{pointsLog.length > 0}}">
     <view class="section-header">
       <text class="section-title">积分记录</text>

@@ -10,7 +10,7 @@ const db = cloud.database();
 const _ = db.command;
 
 // 从环境变量读取API密钥（安全做法）
-const AI_API_KEY = process.env.AI_API_KEY || '你的AI_API_KEY';
+const AI_API_KEY = process.env.AI_API_KEY || '';
 const AI_API_URL = process.env.AI_API_URL || 'https://ark.cn-beijing.volces.com/api/v3/chat/completions';
 const AI_MODEL = process.env.AI_MODEL || 'ep-20241101-xxxxx';
 const AI_TYPE = process.env.AI_TYPE || 'doubao';
@@ -66,6 +66,13 @@ exports.main = async (event, context) => {
   const DESC_PREFIX = generationType === 'bianbian' ? '百变头像生成' : (ethnicType ? `民族风格头像生成 (${ethnicType})` : 'AI头像生成');
 
   try {
+    if (!AI_API_KEY) {
+      return {
+        code: -1,
+        msg: 'AI服务未配置：缺少 AI_API_KEY 环境变量'
+      };
+    }
+
     // 1. 获取用户信息（兼容文档不存在的情况）
     let user;
     try {

@@ -1,5 +1,4 @@
 <view class="container">
-  <!-- 头部积分卡片 -->
   <view class="header-section">
     <view class="points-card">
       <view class="points-top">
@@ -8,31 +7,30 @@
           <view class="points-row">
             <text class="points-value">{{points}}</text>
             <view class="points-btn" bindtap="goToPoints">
-              <text class="points-btn-text">+</text>
+              <image class="points-btn-icon" src="/images/icons/plus.svg" mode="aspectFit"></image>
             </view>
           </view>
         </view>
-        <text class="header-decoration">✨</text>
+        <image class="header-decoration" src="/images/icons/sparkle.svg" mode="aspectFit"></image>
       </view>
       <view class="points-bottom">
         <view class="points-item" bindtap="goToPoints">
-          <text class="points-item-icon">📅</text>
+          <image class="points-item-icon" src="/images/icons/calendar.svg" mode="aspectFit"></image>
           <text class="points-item-text">每日签到</text>
         </view>
         <view class="points-item" bindtap="watchAd">
-          <text class="points-item-icon">🎬</text>
+          <image class="points-item-icon" src="/images/icons/star.svg" mode="aspectFit"></image>
           <text class="points-item-text">看广告领积分</text>
         </view>
         <view class="points-item" bindtap="goToInvite">
-          <text class="points-item-icon">🎁</text>
+          <image class="points-item-icon" src="/images/icons/invite.png" mode="aspectFit"></image>
           <text class="points-item-text">邀请好友</text>
         </view>
       </view>
     </view>
   </view>
 
-  <!-- 上传区域 -->
-  <view class="section-card">
+  <view class="section-card section-card-elevated">
     <view class="section-header">
       <text class="section-title">上传照片</text>
       <text class="section-tips">支持自拍或相册</text>
@@ -40,15 +38,16 @@
     <view class="upload-area" bindtap="chooseImage">
       <image wx:if="{{selectedImage}}" class="preview-image" src="{{selectedImage}}" mode="aspectFill"></image>
       <view wx:else class="upload-placeholder">
-        <text class="upload-icon">📷</text>
+        <view class="upload-icon-wrapper">
+          <image class="upload-icon-img" src="/images/icons/camera.svg" mode="aspectFit"></image>
+        </view>
         <text class="upload-text">点击选择照片</text>
         <text class="upload-tips">支持jpg、png格式</text>
       </view>
     </view>
   </view>
 
-  <!-- 民族风格选择（新增） -->
-  <view class="section-card">
+  <view class="section-card section-card-elevated">
     <view class="section-header">
       <text class="section-title">民族风格</text>
       <text class="section-tips">特色风格</text>
@@ -71,8 +70,7 @@
     </scroll-view>
   </view>
 
-  <!-- 基础风格选择 -->
-  <view class="section-card">
+  <view class="section-card section-card-elevated">
     <view class="section-header">
       <text class="section-title">基础风格</text>
       <text class="section-tips">AI智能生成</text>
@@ -86,7 +84,7 @@
           data-style="{{item.key}}"
           bindtap="selectStyle"
         >
-          <text class="style-icon">🎨</text>
+          <image class="style-icon-img" src="/images/styles/{{item.key}}.png" mode="aspectFill"></image>
           <text class="style-name">{{item.name}}</text>
           <text wx:if="{{item.hot}}" class="style-hot">HOT</text>
         </view>
@@ -94,32 +92,41 @@
     </scroll-view>
   </view>
 
-  <!-- 生成按钮 -->
+  <view class="selection-bar">
+    <text class="selection-text">已选风格：{{selectedStyle}}</text>
+    <text class="selection-text" wx:if="{{selectedEthnic}}">民族加成：{{selectedEthnic}}</text>
+    <text class="selection-text" wx:else>民族加成：无</text>
+  </view>
+
   <view class="action-section">
     <button
       class="generate-btn"
       bindtap="generateAvatar"
       disabled="{{isGenerating || !selectedImage}}"
     >
-      <text wx:if="{{isGenerating}}" class="btn-loading">生成中...</text>
-      <text wx:else>立即生成 AI头像</text>
+      <view class="btn-content">
+        <image wx:if="{{!isGenerating}}" class="btn-icon" src="/images/icons/sparkle.svg" mode="aspectFit"></image>
+        <view wx:else class="btn-loading-icon"></view>
+        <text class="btn-text">{{isGenerating ? '生成中...' : '立即生成AI头像'}}</text>
+      </view>
       <text class="btn-points">消耗10积分</text>
     </button>
   </view>
 
-  <!-- 提示信息 -->
   <view class="tips-section">
     <view class="tips-item">
-      <text class="tips-icon">✓</text>
+      <image class="tips-icon" src="/images/icons/check.svg" mode="aspectFit"></image>
       <text class="tips-text">AI智能生成，效果自然</text>
     </view>
     <view class="tips-item">
-      <text class="tips-icon">✓</text>
+      <image class="tips-icon" src="/images/icons/check.svg" mode="aspectFit"></image>
       <text class="tips-text">支持5种民族风格</text>
     </view>
     <view class="tips-item">
-      <text class="tips-icon">✓</text>
+      <image class="tips-icon" src="/images/icons/check.svg" mode="aspectFit"></image>
       <text class="tips-text">生成内容仅供参考</text>
     </view>
   </view>
+
+  <view class="safe-bottom-space"></view>
 </view>

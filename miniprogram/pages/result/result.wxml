@@ -1,15 +1,16 @@
 <view class="container">
-  <!-- 生成信息栏 -->
   <view class="info-bar">
     <view class="info-tag type-tag">{{typeText}}</view>
     <view class="info-center">
       <text class="info-style" wx:if="{{styleText}}">{{styleText}}</text>
       <text class="info-style" wx:if="{{ethnic && ethnic !== 'none'}}"> + 民族风</text>
     </view>
-    <view class="info-tag success-tag">&#10003; 成功</view>
+    <view class="info-tag success-tag">
+      <image class="success-icon" src="/images/icons/check.svg" mode="aspectFit"></image>
+      <text>成功</text>
+    </view>
   </view>
 
-  <!-- 生成图片 -->
   <view class="result-image-section">
     <view class="image-wrapper">
       <image wx:if="{{tempFilePath}}" class="result-image" src="{{tempFilePath}}" mode="aspectFit"></image>
@@ -18,14 +19,15 @@
         <text class="loading-text">AI生成中...</text>
       </view>
     </view>
-    <!-- 已保存标记 -->
-    <view class="saved-badge" wx:if="{{isSaved}}">&#10003; 已保存</view>
+    <view class="saved-badge" wx:if="{{isSaved}}">
+      <image class="saved-icon" src="/images/icons/check.svg" mode="aspectFit"></image>
+      <text>已保存</text>
+    </view>
   </view>
 
-  <!-- 新疆特色头像框 -->
   <view class="frames-section">
     <view class="section-header">
-      <text class="section-title">🇺🇳 新疆特色边框</text>
+      <text class="section-title">{{frameSectionTitle}}</text>
       <text class="section-tips">点击选择</text>
     </view>
     <scroll-view class="frames-scroll" scroll-x="true" enhanced show-scrollbar="{{false}}">
@@ -44,34 +46,34 @@
     </scroll-view>
   </view>
 
-  <!-- 操作按钮区 -->
   <view class="action-section">
-    <!-- 主操作 -->
     <view class="main-actions">
       <button class="action-btn btn-save" bindtap="saveImage">
-        <text class="btn-icon">💾</text>
+        <image class="btn-icon" src="/images/icons/download.svg" mode="aspectFit"></image>
         <text>{{isSaved ? '已保存' : '保存相册'}}</text>
       </button>
       <button class="action-btn btn-share" open-type="share">
-        <text class="btn-icon">📤</text>
+        <image class="btn-icon" src="/images/icons/share.svg" mode="aspectFit"></image>
         <text>分享小程序</text>
       </button>
     </view>
-    <!-- 次操作 -->
     <view class="sub-actions">
       <button 
         class="sub-btn {{isSharedToGallery ? 'sub-done' : ''}}" 
         bindtap="shareToGallery"
       >
-        {{isSharedToGallery ? '✨ 已分享到头像墙' : '🖼️ 分享到头像墙'}}
+        <image class="sub-btn-icon" src="/images/icons/gallery.svg" mode="aspectFit"></image>
+        <text>{{isSharedToGallery ? '已分享到头像墙' : '分享到头像墙'}}</text>
       </button>
-      <button class="sub-btn" bindtap="regenerate">🔄 重新生成</button>
+      <button class="sub-btn" bindtap="regenerate">
+        <image class="sub-btn-icon" src="/images/icons/refresh.svg" mode="aspectFit"></image>
+        <text>重新生成</text>
+      </button>
     </view>
   </view>
 
-  <!-- 提示 -->
   <view class="tips-row">
-    <text class="tips-dot">·</text>
-    <text class="tips-text">AI生成内容仅供参考，请勿用于井节边界用途</text>
+    <view class="tips-dot"></view>
+    <text class="tips-text">AI生成内容仅供参考，请勿用于不当用途</text>
   </view>
 </view>
